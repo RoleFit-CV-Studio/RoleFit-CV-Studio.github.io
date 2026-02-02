@@ -5,6 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RoleFit CV Studio - Generate Job-Aligned CV Variants</title>
     <meta name="description" content="Browser-only CV builder that helps you create job-specific CV variants using automatic matching techniques. Privacy-first, no server required.">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="keywords" content="CV builder, resume builder, job application, CV generator, career tools, job-aligned CV, privacy-first, offline CV builder">
+    <meta name="author" content="RoleFit CV Studio">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <link rel="canonical" href="https://rolefit-cv-studio.github.io/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rolefit-cv-studio.github.io/">
+    <meta property="og:title" content="RoleFit CV Studio - Generate Job-Aligned CV Variants">
+    <meta property="og:description" content="Browser-only CV builder that helps you create job-specific CV variants using automatic matching techniques. Privacy-first, no server required.">
+    <meta property="og:image" content="https://res.cloudinary.com/dkj22lm1g/image/upload/v1770032243/RoleFit-CV-Studio_bwzlo6.webp">
+    <meta property="og:image:alt" content="RoleFit CV Studio Logo">
+    <meta property="og:site_name" content="RoleFit CV Studio">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://rolefit-cv-studio.github.io/">
+    <meta name="twitter:title" content="RoleFit CV Studio - Generate Job-Aligned CV Variants">
+    <meta name="twitter:description" content="Browser-only CV builder that helps you create job-specific CV variants using automatic matching techniques. Privacy-first, no server required.">
+    <meta name="twitter:image" content="https://res.cloudinary.com/dkj22lm1g/image/upload/v1770032243/RoleFit-CV-Studio_bwzlo6.webp">
+    <meta name="twitter:image:alt" content="RoleFit CV Studio Logo">
+    
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/webp" href="https://res.cloudinary.com/dkj22lm1g/image/upload/v1770032243/RoleFit-CV-Studio_bwzlo6.webp">
+    <link rel="apple-touch-icon" href="https://res.cloudinary.com/dkj22lm1g/image/upload/v1770032243/RoleFit-CV-Studio_bwzlo6.webp">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="msapplication-TileColor" content="#2563eb">
+    
+    <!-- Preload Critical Assets -->
+    <link rel="preload" as="image" href="https://res.cloudinary.com/dkj22lm1g/image/upload/v1770032243/RoleFit-CV-Studio_bwzlo6.webp">
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+    
     <!-- Tailwind CSS CDN with fallback -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -530,11 +566,7 @@
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center space-x-3 animate-fade-in">
-                    <div class="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center shadow-lg">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                    </div>
+                    <img src="https://res.cloudinary.com/dkj22lm1g/image/upload/v1770032243/RoleFit-CV-Studio_bwzlo6.webp" alt="RoleFit CV Studio Logo" class="w-10 h-10 rounded-xl shadow-lg object-cover">
                     <div>
                         <h1 class="text-xl font-bold text-slate-800">RoleFit CV Studio</h1>
                         <p class="text-xs text-slate-500">Job-aligned CV variants</p>
@@ -566,6 +598,14 @@
                             <span>Reset</span>
                         </span>
                     </button>
+                    <button onclick="showUserGuide()" class="px-4 py-2 text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors">
+                        <span class="flex items-center space-x-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span>Help</span>
+                        </span>
+                    </button>
                 </div>
                 
                 <!-- Mobile menu button -->
@@ -582,6 +622,7 @@
                     <button onclick="showImportModal()" class="px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-lg text-left">Import Data</button>
                     <button onclick="exportData()" class="px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-lg text-left">Export Data</button>
                     <button onclick="resetData()" class="px-4 py-2 text-sm font-medium text-red-500 hover:bg-red-50 rounded-lg text-left">Reset Data</button>
+                    <button onclick="showUserGuide()" class="px-4 py-2 text-sm font-medium text-primary-600 hover:bg-primary-50 rounded-lg text-left">Help / User Guide</button>
                 </div>
             </div>
         </nav>
@@ -1324,11 +1365,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
                     <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                        </div>
+                        <img src="https://res.cloudinary.com/dkj22lm1g/image/upload/v1770032243/RoleFit-CV-Studio_bwzlo6.webp" alt="RoleFit CV Studio Logo" class="w-10 h-10 rounded-xl object-cover">
                         <span class="text-xl font-bold">RoleFit CV Studio</span>
                     </div>
                     <p class="text-slate-400 text-sm mb-4">
@@ -1394,6 +1431,206 @@
         </div>
     </div>
 
+    <!-- User Guide Modal -->
+    <div id="userGuideModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden animate-scale-in">
+            <div class="flex items-center justify-between p-6 border-b border-slate-200">
+                <div class="flex items-center space-x-3">
+                    <img src="https://res.cloudinary.com/dkj22lm1g/image/upload/v1770032243/RoleFit-CV-Studio_bwzlo6.webp" alt="RoleFit CV Studio Logo" class="w-10 h-10 rounded-xl object-cover">
+                    <h3 class="text-xl font-bold text-slate-800">User Guide</h3>
+                </div>
+                <button onclick="closeUserGuide()" class="p-2 hover:bg-slate-100 rounded-lg transition-colors">
+                    <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto max-h-[calc(90vh-80px)]">
+                <div class="space-y-6">
+                    <!-- Introduction -->
+                    <div class="bg-primary-50 rounded-xl p-4 border border-primary-100">
+                        <h4 class="font-semibold text-primary-800 mb-2 flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Welcome to RoleFit CV Studio
+                        </h4>
+                        <p class="text-sm text-primary-700">
+                            RoleFit CV Studio helps you create job-specific CV variants from a single master profile. 
+                            All your data stays in your browser - nothing is sent to any server, ensuring complete privacy.
+                        </p>
+                    </div>
+
+                    <!-- Step 1 -->
+                    <div class="border border-slate-200 rounded-xl p-4">
+                        <h4 class="font-semibold text-slate-800 mb-3 flex items-center">
+                            <span class="w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">1</span>
+                            Create Your Master Profile
+                        </h4>
+                        <p class="text-sm text-slate-600 mb-3">
+                            Start by filling out your complete professional profile with all your experience, skills, education, and projects.
+                        </p>
+                        <ul class="text-sm text-slate-600 space-y-2 ml-11">
+                            <li class="flex items-start">
+                                <span class="text-primary-500 mr-2">•</span>
+                                <span><strong>Basics:</strong> Add your contact information including LinkedIn and Portfolio URLs</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-primary-500 mr-2">•</span>
+                                <span><strong>Experience:</strong> Add all your work experiences with detailed bullet points</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-primary-500 mr-2">•</span>
+                                <span><strong>Skills:</strong> List your technical skills, tools, and soft skills</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-primary-500 mr-2">•</span>
+                                <span><strong>Projects:</strong> Showcase your projects with descriptions and links</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-primary-500 mr-2">•</span>
+                                <span><strong>Education & Certifications:</strong> Add your academic background</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="border border-slate-200 rounded-xl p-4">
+                        <h4 class="font-semibold text-slate-800 mb-3 flex items-center">
+                            <span class="w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">2</span>
+                            Enter Job Description
+                        </h4>
+                        <p class="text-sm text-slate-600 mb-3">
+                            Paste the job description you're applying for. The ACM (Automatic Content Matching) engine will analyze it.
+                        </p>
+                        <ul class="text-sm text-slate-600 space-y-2 ml-11">
+                            <li class="flex items-start">
+                                <span class="text-primary-500 mr-2">•</span>
+                                <span>Copy the entire job posting including requirements and responsibilities</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-primary-500 mr-2">•</span>
+                                <span>Include company name and job title for better context</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="border border-slate-200 rounded-xl p-4">
+                        <h4 class="font-semibold text-slate-800 mb-3 flex items-center">
+                            <span class="w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">3</span>
+                            Review Match Analysis
+                        </h4>
+                        <p class="text-sm text-slate-600 mb-3">
+                            See how well your profile matches the job requirements with a detailed skill breakdown.
+                        </p>
+                        <ul class="text-sm text-slate-600 space-y-2 ml-11">
+                            <li class="flex items-start">
+                                <span class="text-green-500 mr-2">●</span>
+                                <span><strong>Matched Skills:</strong> Skills you have that match the job</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-500 mr-2">●</span>
+                                <span><strong>Gap Skills:</strong> Skills mentioned in the job you might want to highlight differently</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-blue-500 mr-2">●</span>
+                                <span><strong>Extra Skills:</strong> Additional skills you have that could be valuable</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="border border-slate-200 rounded-xl p-4">
+                        <h4 class="font-semibold text-slate-800 mb-3 flex items-center">
+                            <span class="w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">4</span>
+                            Generate & Customize CV
+                        </h4>
+                        <p class="text-sm text-slate-600 mb-3">
+                            Choose a template and customize section order for your tailored CV.
+                        </p>
+                        <ul class="text-sm text-slate-600 space-y-2 ml-11">
+                            <li class="flex items-start">
+                                <span class="text-primary-500 mr-2">•</span>
+                                <span><strong>Classic Template:</strong> Traditional single-column layout</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-primary-500 mr-2">•</span>
+                                <span><strong>Modern Template:</strong> Two-column layout with sidebar</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-primary-500 mr-2">•</span>
+                                <span>Drag and drop sections to reorder them</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="border border-slate-200 rounded-xl p-4">
+                        <h4 class="font-semibold text-slate-800 mb-3 flex items-center">
+                            <span class="w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">5</span>
+                            Export Your CV
+                        </h4>
+                        <p class="text-sm text-slate-600 mb-3">
+                            Save your tailored CV variant and export it in your preferred format.
+                        </p>
+                        <ul class="text-sm text-slate-600 space-y-2 ml-11">
+                            <li class="flex items-start">
+                                <span class="text-primary-500 mr-2">•</span>
+                                <span><strong>Print/PDF:</strong> Use browser print function to save as PDF</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-primary-500 mr-2">•</span>
+                                <span><strong>Save Variant:</strong> Save this version for later reference</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-primary-500 mr-2">•</span>
+                                <span><strong>Export JSON:</strong> Backup all your data for later use</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Tips -->
+                    <div class="bg-accent-50 rounded-xl p-4 border border-accent-100">
+                        <h4 class="font-semibold text-accent-800 mb-3 flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                            </svg>
+                            Pro Tips
+                        </h4>
+                        <ul class="text-sm text-accent-700 space-y-2">
+                            <li class="flex items-start">
+                                <span class="text-accent-500 mr-2">✓</span>
+                                <span>Use the <strong>Import/Export</strong> feature to backup your data regularly</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-accent-500 mr-2">✓</span>
+                                <span>Your data is automatically saved as you type</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-accent-500 mr-2">✓</span>
+                                <span>LinkedIn and Portfolio links are clickable in the generated CV</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-accent-500 mr-2">✓</span>
+                                <span>Project names link to their URLs when provided</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-accent-500 mr-2">✓</span>
+                                <span>The application works completely offline once loaded</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t border-slate-200 bg-slate-50 rounded-b-2xl">
+                <button onclick="closeUserGuide()" class="w-full py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 transition-colors">
+                    Got it, let's get started!
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast Notification -->
     <div id="toast" class="fixed bottom-4 right-4 bg-slate-800 text-white px-6 py-3 rounded-xl shadow-lg transform translate-y-full opacity-0 transition-all duration-300 z-50">
         <span id="toastMessage">Notification message</span>
@@ -1414,6 +1651,36 @@
 
     <!-- JavaScript -->
     <script>
+        // ==================== Security Helpers ====================
+        // Sanitize URL to prevent XSS attacks (only allow http/https protocols)
+        function sanitizeUrl(url) {
+            if (!url || typeof url !== 'string') return '';
+            const trimmedUrl = url.trim();
+            // Only allow http and https protocols
+            if (trimmedUrl.startsWith('http://') || trimmedUrl.startsWith('https://')) {
+                return trimmedUrl;
+            }
+            // Check for dangerous protocols (javascript:, data:, vbscript:, etc.)
+            const colonIndex = trimmedUrl.indexOf(':');
+            if (colonIndex !== -1) {
+                const beforeColon = trimmedUrl.substring(0, colonIndex).toLowerCase();
+                // If it looks like a protocol (only letters before colon), reject dangerous ones
+                if (/^[a-z]+$/.test(beforeColon)) {
+                    return ''; // Dangerous protocol detected
+                }
+            }
+            // No dangerous protocol detected, assume https
+            return 'https://' + trimmedUrl;
+        }
+
+        // Escape HTML to prevent XSS attacks
+        function escapeHtml(text) {
+            if (!text || typeof text !== 'string') return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
         // ==================== Storage Module ====================
         const Storage = {
             KEYS: {
@@ -2250,6 +2517,10 @@
         function buildCVContent(template) {
             const isModern = template === 'modern';
             
+            // Sanitize URLs for security
+            const linkedinUrl = sanitizeUrl(profile.basics.linkedin);
+            const portfolioUrl = sanitizeUrl(profile.basics.portfolio);
+            
             let html = `<div class="${isModern ? 'flex gap-6' : ''}">`;
             
             if (isModern) {
@@ -2257,12 +2528,13 @@
                 html += `
                     <div class="w-1/3 bg-slate-100 p-4 rounded-lg">
                         <div class="mb-6">
-                            <h3 class="text-lg font-bold text-slate-800 mb-2">${profile.basics.fullName || 'Your Name'}</h3>
+                            <h3 class="text-lg font-bold text-slate-800 mb-2">${escapeHtml(profile.basics.fullName) || 'Your Name'}</h3>
                             <div class="text-xs text-slate-600 space-y-1">
-                                ${profile.basics.email ? `<p>📧 ${profile.basics.email}</p>` : ''}
-                                ${profile.basics.phone ? `<p>📱 ${profile.basics.phone}</p>` : ''}
-                                ${profile.basics.location ? `<p>📍 ${profile.basics.location}</p>` : ''}
-                                ${profile.basics.linkedin ? `<p>🔗 LinkedIn</p>` : ''}
+                                ${profile.basics.email ? `<p>📧 ${escapeHtml(profile.basics.email)}</p>` : ''}
+                                ${profile.basics.phone ? `<p>📱 ${escapeHtml(profile.basics.phone)}</p>` : ''}
+                                ${profile.basics.location ? `<p>📍 ${escapeHtml(profile.basics.location)}</p>` : ''}
+                                ${linkedinUrl ? `<p>🔗 <a href="${linkedinUrl}" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline">LinkedIn</a></p>` : ''}
+                                ${portfolioUrl ? `<p>🌐 <a href="${portfolioUrl}" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline">Portfolio</a></p>` : ''}
                             </div>
                         </div>
                         ${renderSkillsSection(true)}
@@ -2273,13 +2545,13 @@
                 // Classic template - header
                 html += `
                     <div class="text-center mb-4 pb-4 border-b-2 border-slate-300">
-                        <h2 class="text-2xl font-bold text-slate-800">${profile.basics.fullName || 'Your Name'}</h2>
+                        <h2 class="text-2xl font-bold text-slate-800">${escapeHtml(profile.basics.fullName) || 'Your Name'}</h2>
                         <div class="text-sm text-slate-600 mt-1">
-                            ${[profile.basics.email, profile.basics.phone, profile.basics.location].filter(Boolean).join(' | ')}
+                            ${[profile.basics.email, profile.basics.phone, profile.basics.location].filter(Boolean).map(escapeHtml).join(' | ')}
                         </div>
-                        ${profile.basics.linkedin || profile.basics.portfolio ? `
+                        ${linkedinUrl || portfolioUrl ? `
                             <div class="text-sm text-primary-600 mt-1">
-                                ${profile.basics.linkedin ? 'LinkedIn' : ''} ${profile.basics.portfolio ? '| Portfolio' : ''}
+                                ${linkedinUrl ? `<a href="${linkedinUrl}" target="_blank" rel="noopener noreferrer" class="hover:underline">LinkedIn</a>` : ''} ${portfolioUrl ? `${linkedinUrl ? '| ' : ''}<a href="${portfolioUrl}" target="_blank" rel="noopener noreferrer" class="hover:underline">Portfolio</a>` : ''}
                             </div>
                         ` : ''}
                     </div>
@@ -2291,7 +2563,7 @@
                 html += `
                     <div class="mb-4">
                         <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wide mb-2 ${isModern ? '' : 'border-b border-slate-300 pb-1'}">Summary</h3>
-                        <p class="text-sm text-slate-600">${profile.summary}</p>
+                        <p class="text-sm text-slate-600">${escapeHtml(profile.summary)}</p>
                     </div>
                 `;
             }
@@ -2305,14 +2577,14 @@
                             <div class="mb-3">
                                 <div class="flex justify-between items-start">
                                     <div>
-                                        <h4 class="font-semibold text-slate-800 text-sm">${exp.title}</h4>
-                                        <p class="text-xs text-slate-600">${exp.company}${exp.location ? ` • ${exp.location}` : ''}</p>
+                                        <h4 class="font-semibold text-slate-800 text-sm">${escapeHtml(exp.title)}</h4>
+                                        <p class="text-xs text-slate-600">${escapeHtml(exp.company)}${exp.location ? ` • ${escapeHtml(exp.location)}` : ''}</p>
                                     </div>
-                                    <span class="text-xs text-slate-500">${exp.startDate} - ${exp.endDate}</span>
+                                    <span class="text-xs text-slate-500">${escapeHtml(exp.startDate)} - ${escapeHtml(exp.endDate)}</span>
                                 </div>
                                 ${exp.bullets.length > 0 ? `
                                     <ul class="mt-1 text-xs text-slate-600 space-y-1">
-                                        ${exp.bullets.map(b => `<li class="flex"><span class="mr-2">•</span><span>${b}</span></li>`).join('')}
+                                        ${exp.bullets.map(b => `<li class="flex"><span class="mr-2">•</span><span>${escapeHtml(b)}</span></li>`).join('')}
                                     </ul>
                                 ` : ''}
                             </div>
@@ -2331,13 +2603,16 @@
                 html += `
                     <div class="mb-4">
                         <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wide mb-2 ${isModern ? '' : 'border-b border-slate-300 pb-1'}">Projects</h3>
-                        ${profile.projects.map(proj => `
+                        ${profile.projects.map(proj => {
+                            const projLink = sanitizeUrl(proj.link);
+                            const projName = escapeHtml(proj.name);
+                            return `
                             <div class="mb-2">
-                                <h4 class="font-semibold text-slate-800 text-sm">${proj.name}</h4>
-                                <p class="text-xs text-slate-600">${proj.description}</p>
-                                ${proj.technologies ? `<p class="text-xs text-primary-600 mt-1">Tech: ${proj.technologies}</p>` : ''}
+                                <h4 class="font-semibold text-slate-800 text-sm">${projLink ? `<a href="${projLink}" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline">${projName}</a>` : projName}</h4>
+                                <p class="text-xs text-slate-600">${escapeHtml(proj.description)}</p>
+                                ${proj.technologies ? `<p class="text-xs text-primary-600 mt-1">Tech: ${escapeHtml(proj.technologies)}</p>` : ''}
                             </div>
-                        `).join('')}
+                        `}).join('')}
                     </div>
                 `;
             }
@@ -2351,12 +2626,12 @@
                             <div class="mb-2">
                                 <div class="flex justify-between items-start">
                                     <div>
-                                        <h4 class="font-semibold text-slate-800 text-sm">${edu.degree}</h4>
-                                        <p class="text-xs text-slate-600">${edu.school}</p>
+                                        <h4 class="font-semibold text-slate-800 text-sm">${escapeHtml(edu.degree)}</h4>
+                                        <p class="text-xs text-slate-600">${escapeHtml(edu.school)}</p>
                                     </div>
-                                    <span class="text-xs text-slate-500">${edu.year}</span>
+                                    <span class="text-xs text-slate-500">${escapeHtml(edu.year)}</span>
                                 </div>
-                                ${edu.gpa ? `<p class="text-xs text-slate-500">GPA: ${edu.gpa}</p>` : ''}
+                                ${edu.gpa ? `<p class="text-xs text-slate-500">GPA: ${escapeHtml(edu.gpa)}</p>` : ''}
                             </div>
                         `).join('')}
                     </div>
@@ -2370,8 +2645,8 @@
                         <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wide mb-2 ${isModern ? '' : 'border-b border-slate-300 pb-1'}">Certifications</h3>
                         ${profile.certifications.map(cert => `
                             <div class="mb-1">
-                                <span class="font-semibold text-slate-800 text-sm">${cert.name}</span>
-                                <span class="text-xs text-slate-600"> - ${cert.issuer} (${cert.date})</span>
+                                <span class="font-semibold text-slate-800 text-sm">${escapeHtml(cert.name)}</span>
+                                <span class="text-xs text-slate-600"> - ${escapeHtml(cert.issuer)} (${escapeHtml(cert.date)})</span>
                             </div>
                         `).join('')}
                     </div>
@@ -2395,7 +2670,7 @@
                     <div>
                         <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wide mb-2">Skills</h3>
                         <div class="flex flex-wrap gap-1">
-                            ${allSkills.map(skill => `<span class="text-xs bg-white px-2 py-1 rounded">${skill}</span>`).join('')}
+                            ${allSkills.map(skill => `<span class="text-xs bg-white px-2 py-1 rounded">${escapeHtml(skill)}</span>`).join('')}
                         </div>
                     </div>
                 `;
@@ -2404,9 +2679,9 @@
                     <div class="mb-4">
                         <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wide mb-2 border-b border-slate-300 pb-1">Skills</h3>
                         <div class="text-sm text-slate-600">
-                            ${profile.skills.technical.length > 0 ? `<p><strong>Technical:</strong> ${profile.skills.technical.join(', ')}</p>` : ''}
-                            ${profile.skills.tools.length > 0 ? `<p><strong>Tools:</strong> ${profile.skills.tools.join(', ')}</p>` : ''}
-                            ${profile.skills.soft.length > 0 ? `<p><strong>Soft Skills:</strong> ${profile.skills.soft.join(', ')}</p>` : ''}
+                            ${profile.skills.technical.length > 0 ? `<p><strong>Technical:</strong> ${profile.skills.technical.map(escapeHtml).join(', ')}</p>` : ''}
+                            ${profile.skills.tools.length > 0 ? `<p><strong>Tools:</strong> ${profile.skills.tools.map(escapeHtml).join(', ')}</p>` : ''}
+                            ${profile.skills.soft.length > 0 ? `<p><strong>Soft Skills:</strong> ${profile.skills.soft.map(escapeHtml).join(', ')}</p>` : ''}
                         </div>
                     </div>
                 `;
@@ -2524,6 +2799,15 @@
                 }
             };
             reader.readAsText(file);
+        }
+
+        // ==================== User Guide Functions ====================
+        function showUserGuide() {
+            document.getElementById('userGuideModal').classList.remove('hidden');
+        }
+
+        function closeUserGuide() {
+            document.getElementById('userGuideModal').classList.add('hidden');
         }
 
         // ==================== Variants Management ====================
