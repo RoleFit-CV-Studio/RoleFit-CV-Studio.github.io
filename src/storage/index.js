@@ -3,6 +3,8 @@
  * 
  * Provides abstraction over LocalStorage and IndexedDB
  * for persistent data storage.
+ * 
+ * This module is designed for browser-only usage.
  */
 
 const StorageModule = {
@@ -75,7 +77,5 @@ const StorageModule = {
     }
 };
 
-// Export for module usage
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = StorageModule;
-}
+// Make available globally for browser usage
+window.StorageModule = StorageModule;

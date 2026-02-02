@@ -1725,16 +1725,26 @@
                 soft: 'bg-green-100 text-green-700 hover:bg-green-200'
             };
             
+            // Sanitize skill name for safe HTML insertion
+            const sanitizedSkill = skill.replace(/[<>&"']/g, (char) => {
+                const entities = { '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&#39;' };
+                return entities[char];
+            });
+            
             const tag = document.createElement('span');
             tag.className = `skill-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${colors[type]} cursor-pointer`;
+            tag.dataset.skill = skill;
+            tag.dataset.type = type;
             tag.innerHTML = `
-                ${skill}
-                <button onclick="removeSkill('${type}', '${skill}')" class="ml-2 hover:opacity-75">
+                ${sanitizedSkill}
+                <button class="skill-remove-btn ml-2 hover:opacity-75">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
             `;
+            // Use event listener instead of inline onclick
+            tag.querySelector('.skill-remove-btn').addEventListener('click', () => removeSkill(type, skill));
             document.getElementById(containerId).appendChild(tag);
         }
 
@@ -2298,7 +2308,7 @@
                 <html>
                 <head>
                     <title>CV - ${profile.basics.fullName || 'My CV'}</title>
-                    <script src="https://cdn.tailwindcss.com"><\/script>
+                    <script src="https://cdn.tailwindcss.com"></` + `script>
                     <style>
                         body { font-family: 'Inter', system-ui, sans-serif; padding: 20px; }
                         @media print { body { padding: 0; } }
@@ -2329,24 +2339,24 @@
             
             // Basics
             Object.entries(profile.basics).forEach(([key, value]) => {
-                csv += `Basics,${key},"${value}"\n`;
+                csv += `Basics,${key},"${(value || '').replace(/"/g, '""')}"\n`;
             });
             
             // Summary
-            csv += `Summary,text,"${profile.summary.replace(/"/g, '""')}"\n`;
+            csv += `Summary,text,"${(profile.summary || '').replace(/"/g, '""')}"\n`;
             
             // Experience
             profile.experience.forEach((exp, i) => {
-                csv += `Experience ${i+1},title,"${exp.title}"\n`;
-                csv += `Experience ${i+1},company,"${exp.company}"\n`;
-                csv += `Experience ${i+1},dates,"${exp.startDate} - ${exp.endDate}"\n`;
-                csv += `Experience ${i+1},bullets,"${exp.bullets.join('; ').replace(/"/g, '""')}"\n`;
+                csv += `Experience ${i+1},title,"${(exp.title || '').replace(/"/g, '""')}"\n`;
+                csv += `Experience ${i+1},company,"${(exp.company || '').replace(/"/g, '""')}"\n`;
+                csv += `Experience ${i+1},dates,"${(exp.startDate || '')} - ${(exp.endDate || '')}"\n`;
+                csv += `Experience ${i+1},bullets,"${(exp.bullets || []).join('; ').replace(/"/g, '""')}"\n`;
             });
             
             // Skills
-            csv += `Skills,technical,"${profile.skills.technical.join(', ')}"\n`;
-            csv += `Skills,tools,"${profile.skills.tools.join(', ')}"\n`;
-            csv += `Skills,soft,"${profile.skills.soft.join(', ')}"\n`;
+            csv += `Skills,technical,"${(profile.skills.technical || []).join(', ')}"\n`;
+            csv += `Skills,tools,"${(profile.skills.tools || []).join(', ')}"\n`;
+            csv += `Skills,soft,"${(profile.skills.soft || []).join(', ')}"\n`;
             
             downloadFile(csv, 'rolefit-cv-data.csv', 'text/csv');
             showToast('CSV exported successfully!');
