@@ -1,0 +1,2546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoleFit CV Studio - Generate Job-Aligned CV Variants</title>
+    <meta name="description" content="Browser-only CV builder that helps you create job-specific CV variants using automatic matching techniques. Privacy-first, no server required.">
+    <!-- Tailwind CSS CDN with fallback -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        // Only configure Tailwind if it's loaded
+        if (typeof tailwind !== 'undefined') {
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        accent: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'slide-down': 'slideDown 0.3s ease-out',
+                        'scale-in': 'scaleIn 0.3s ease-out',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-subtle': 'bounceSubtle 2s infinite',
+                        'gradient': 'gradient 8s ease infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        slideDown: {
+                            '0%': { opacity: '0', transform: 'translateY(-10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        scaleIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.95)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' },
+                        },
+                        bounceSubtle: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-5px)' },
+                        },
+                        gradient: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        },
+                    },
+                },
+            },
+        }
+        }
+    </script>
+    <style>
+        /* Comprehensive fallback styles - works without Tailwind CDN */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        :root {
+            --primary-50: #eff6ff;
+            --primary-100: #dbeafe;
+            --primary-200: #bfdbfe;
+            --primary-500: #3b82f6;
+            --primary-600: #2563eb;
+            --primary-700: #1d4ed8;
+            --primary-800: #1e40af;
+            --primary-900: #1e3a8a;
+            --accent-50: #f0fdf4;
+            --accent-100: #dcfce7;
+            --accent-500: #22c55e;
+            --accent-600: #16a34a;
+            --accent-700: #15803d;
+            --slate-50: #f8fafc;
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-300: #cbd5e1;
+            --slate-400: #94a3b8;
+            --slate-500: #64748b;
+            --slate-600: #475569;
+            --slate-700: #334155;
+            --slate-800: #1e293b;
+            --slate-900: #0f172a;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            background-color: var(--slate-50);
+            color: var(--slate-800);
+        }
+        
+        /* Keyframe animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes bounceSubtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .animate-fade-in { animation: fadeIn 0.5s ease-out; }
+        .animate-slide-up { animation: slideUp 0.5s ease-out; }
+        .animate-slide-down { animation: slideDown 0.3s ease-out; }
+        .animate-scale-in { animation: scaleIn 0.3s ease-out; }
+        .animate-bounce-subtle { animation: bounceSubtle 2s infinite; }
+        
+        /* Custom styles */
+        .gradient-bg {
+            background: linear-gradient(-45deg, #1e3a8a, #2563eb, #3b82f6, #60a5fa);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .step-indicator {
+            transition: all 0.3s ease;
+        }
+        
+        .step-indicator.active {
+            transform: scale(1.1);
+        }
+        
+        .step-indicator.completed {
+            background-color: #22c55e;
+        }
+        
+        .wizard-step {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .wizard-step.active {
+            display: block;
+        }
+        
+        .skill-tag {
+            transition: all 0.2s ease;
+        }
+        
+        .skill-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .match-score-ring {
+            transition: stroke-dashoffset 1s ease-out;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .input-focus {
+            transition: all 0.2s ease;
+        }
+        
+        .input-focus:focus {
+            transform: scale(1.01);
+        }
+        
+        /* Button styles */
+        button {
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+        
+        /* Input styles */
+        input, textarea, select {
+            font-family: inherit;
+        }
+        
+        /* Layout helpers */
+        .hidden { display: none !important; }
+        .flex { display: flex; }
+        .grid { display: grid; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .space-x-2 > * + * { margin-left: 0.5rem; }
+        .space-x-3 > * + * { margin-left: 0.75rem; }
+        .space-x-4 > * + * { margin-left: 1rem; }
+        .space-y-2 > * + * { margin-top: 0.5rem; }
+        .space-y-4 > * + * { margin-top: 1rem; }
+        .space-y-6 > * + * { margin-top: 1.5rem; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-4 { gap: 1rem; }
+        .gap-6 { gap: 1.5rem; }
+        
+        /* Typography fallback */
+        h1, h2, h3, h4, h5, h6 { font-weight: 700; line-height: 1.2; }
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.5rem; }
+        h4 { font-size: 1.25rem; }
+        p { margin-bottom: 1rem; }
+        
+        /* Tailwind-like utility classes fallback */
+        .text-white { color: white; }
+        .text-center { text-align: center; }
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .font-medium { font-weight: 500; }
+        .text-sm { font-size: 0.875rem; }
+        .text-xs { font-size: 0.75rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-3xl { font-size: 1.875rem; }
+        .text-4xl { font-size: 2.25rem; }
+        .text-5xl { font-size: 3rem; }
+        
+        .bg-white { background-color: white; }
+        .bg-slate-50 { background-color: #f8fafc; }
+        .bg-slate-100 { background-color: #f1f5f9; }
+        .bg-slate-900 { background-color: #0f172a; }
+        .bg-primary-50 { background-color: #eff6ff; }
+        .bg-primary-100 { background-color: #dbeafe; }
+        .bg-primary-600 { background-color: #2563eb; }
+        .bg-primary-700 { background-color: #1d4ed8; }
+        .bg-accent-50 { background-color: #f0fdf4; }
+        .bg-accent-100 { background-color: #dcfce7; }
+        .bg-accent-500 { background-color: #22c55e; }
+        .bg-accent-600 { background-color: #16a34a; }
+        .bg-green-100 { background-color: #dcfce7; }
+        .bg-amber-100 { background-color: #fef3c7; }
+        .bg-blue-100 { background-color: #dbeafe; }
+        .bg-red-100 { background-color: #fee2e2; }
+        .bg-purple-100 { background-color: #f3e8ff; }
+        
+        .text-slate-400 { color: #94a3b8; }
+        .text-slate-500 { color: #64748b; }
+        .text-slate-600 { color: #475569; }
+        .text-slate-700 { color: #334155; }
+        .text-slate-800 { color: #1e293b; }
+        .text-primary-600 { color: #2563eb; }
+        .text-accent-600 { color: #16a34a; }
+        .text-green-500 { color: #22c55e; }
+        .text-green-700 { color: #15803d; }
+        .text-amber-500 { color: #f59e0b; }
+        .text-amber-700 { color: #b45309; }
+        .text-blue-500 { color: #3b82f6; }
+        .text-blue-600 { color: #2563eb; }
+        .text-red-500 { color: #ef4444; }
+        .text-red-600 { color: #dc2626; }
+        .text-purple-600 { color: #9333ea; }
+        
+        .border { border: 1px solid #e2e8f0; }
+        .border-2 { border: 2px solid #e2e8f0; }
+        .border-b { border-bottom: 1px solid #e2e8f0; }
+        .border-b-2 { border-bottom: 2px solid #e2e8f0; }
+        .border-dashed { border-style: dashed; }
+        .border-slate-100 { border-color: #f1f5f9; }
+        .border-slate-200 { border-color: #e2e8f0; }
+        .border-slate-300 { border-color: #cbd5e1; }
+        .border-primary-500 { border-color: #3b82f6; }
+        .border-primary-600 { border-color: #2563eb; }
+        
+        .rounded { border-radius: 0.25rem; }
+        .rounded-lg { border-radius: 0.5rem; }
+        .rounded-xl { border-radius: 0.75rem; }
+        .rounded-2xl { border-radius: 1rem; }
+        .rounded-full { border-radius: 9999px; }
+        
+        .shadow { box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+        .shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+        
+        .p-2 { padding: 0.5rem; }
+        .p-3 { padding: 0.75rem; }
+        .p-4 { padding: 1rem; }
+        .p-5 { padding: 1.25rem; }
+        .p-6 { padding: 1.5rem; }
+        .p-8 { padding: 2rem; }
+        .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+        .px-8 { padding-left: 2rem; padding-right: 2rem; }
+        .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+        .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+        .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+        .py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+        .py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+        .pt-24 { padding-top: 6rem; }
+        .pb-4 { padding-bottom: 1rem; }
+        .pb-16 { padding-bottom: 4rem; }
+        .mb-1 { margin-bottom: 0.25rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-3 { margin-bottom: 0.75rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mb-12 { margin-bottom: 3rem; }
+        .mt-1 { margin-top: 0.25rem; }
+        .mt-2 { margin-top: 0.5rem; }
+        .mt-4 { margin-top: 1rem; }
+        .mt-6 { margin-top: 1.5rem; }
+        .mt-8 { margin-top: 2rem; }
+        .mt-12 { margin-top: 3rem; }
+        .mr-2 { margin-right: 0.5rem; }
+        .mr-3 { margin-right: 0.75rem; }
+        .mr-4 { margin-right: 1rem; }
+        .ml-2 { margin-left: 0.5rem; }
+        .ml-auto { margin-left: auto; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        
+        .w-4 { width: 1rem; }
+        .w-5 { width: 1.25rem; }
+        .w-6 { width: 1.5rem; }
+        .w-8 { width: 2rem; }
+        .w-10 { width: 2.5rem; }
+        .w-12 { width: 3rem; }
+        .w-16 { width: 4rem; }
+        .w-32 { width: 8rem; }
+        .w-full { width: 100%; }
+        .w-1\/3 { width: 33.333333%; }
+        .w-2\/3 { width: 66.666667%; }
+        .h-1 { height: 0.25rem; }
+        .h-2 { height: 0.5rem; }
+        .h-4 { height: 1rem; }
+        .h-5 { height: 1.25rem; }
+        .h-6 { height: 1.5rem; }
+        .h-10 { height: 2.5rem; }
+        .h-12 { height: 3rem; }
+        .h-16 { height: 4rem; }
+        .h-20 { height: 5rem; }
+        .h-32 { height: 8rem; }
+        .min-h-screen { min-height: 100vh; }
+        
+        .max-w-md { max-width: 28rem; }
+        .max-w-2xl { max-width: 42rem; }
+        .max-w-3xl { max-width: 48rem; }
+        .max-w-5xl { max-width: 64rem; }
+        .max-w-7xl { max-width: 80rem; }
+        
+        .fixed { position: fixed; }
+        .absolute { position: absolute; }
+        .relative { position: relative; }
+        .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+        .top-0 { top: 0; }
+        .left-0 { left: 0; }
+        .right-0 { right: 0; }
+        .right-4 { right: 1rem; }
+        .bottom-4 { bottom: 1rem; }
+        .z-50 { z-index: 50; }
+        
+        .flex-col { flex-direction: column; }
+        .flex-wrap { flex-wrap: wrap; }
+        .flex-1 { flex: 1 1 0%; }
+        .items-start { align-items: flex-start; }
+        .overflow-auto { overflow: auto; }
+        .overflow-x-auto { overflow-x: auto; }
+        .resize-none { resize: none; }
+        .outline-none { outline: none; }
+        .whitespace-nowrap { white-space: nowrap; }
+        .cursor-pointer { cursor: pointer; }
+        .cursor-move { cursor: move; }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
+        
+        .opacity-0 { opacity: 0; }
+        .translate-y-full { transform: translateY(100%); }
+        .transform { transform: translateX(0); }
+        .-translate-y-1:hover { transform: translateY(-0.25rem); }
+        .-rotate-90 { transform: rotate(-90deg); }
+        
+        .transition-all { transition: all 0.3s ease; }
+        .transition-colors { transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease; }
+        .duration-300 { transition-duration: 300ms; }
+        
+        .inline-block { display: inline-block; }
+        .inline-flex { display: inline-flex; }
+        .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        
+        /* Responsive utilities */
+        @media (min-width: 640px) {
+            .sm\:px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+            .sm\:flex-row { flex-direction: row; }
+        }
+        
+        @media (min-width: 768px) {
+            .md\:hidden { display: none; }
+            .md\:flex { display: flex; }
+            .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .md\:col-span-2 { grid-column: span 2 / span 2; }
+            .md\:space-x-8 > * + * { margin-left: 2rem; }
+            .md\:w-16 { width: 4rem; }
+            .md\:w-64 { width: 16rem; }
+            .md\:w-auto { width: auto; }
+            .md\:p-8 { padding: 2rem; }
+            .md\:flex-row { flex-direction: row; }
+            .md\:text-5xl { font-size: 3rem; }
+        }
+        
+        @media (min-width: 1024px) {
+            .lg\:px-8 { padding-left: 2rem; padding-right: 2rem; }
+            .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+            .lg\:col-span-1 { grid-column: span 1 / span 1; }
+            .lg\:col-span-2 { grid-column: span 2 / span 2; }
+        }
+        
+        /* Hover states */
+        .hover\:bg-slate-100:hover { background-color: #f1f5f9; }
+        .hover\:bg-primary-700:hover { background-color: #1d4ed8; }
+        .hover\:bg-accent-700:hover { background-color: #15803d; }
+        .hover\:bg-red-50:hover { background-color: #fef2f2; }
+        .hover\:bg-red-700:hover { background-color: #b91c1c; }
+        .hover\:bg-blue-700:hover { background-color: #1d4ed8; }
+        .hover\:bg-green-700:hover { background-color: #15803d; }
+        .hover\:bg-white:hover { background-color: white; }
+        .hover\:text-slate-700:hover { color: #334155; }
+        .hover\:text-slate-800:hover { color: #1e293b; }
+        .hover\:text-primary-600:hover { color: #2563eb; }
+        .hover\:text-red-600:hover { color: #dc2626; }
+        .hover\:border-slate-300:hover { border-color: #cbd5e1; }
+        .hover\:border-primary-400:hover { border-color: #60a5fa; }
+        .hover\:shadow-xl:hover { box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+        .hover\:opacity-75:hover { opacity: 0.75; }
+        
+        /* Focus states */
+        .focus\:border-primary-500:focus { border-color: #3b82f6; }
+        .focus\:ring-2:focus { box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5); }
+        .focus\:ring-primary-200:focus { box-shadow: 0 0 0 3px #bfdbfe; }
+        
+        /* Print styles for CV export */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            body {
+                font-size: 12pt;
+            }
+        }
+        
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="font-sans bg-slate-50 text-slate-800 min-h-screen">
+    <!-- Navigation Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-slate-200 no-print">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3 animate-fade-in">
+                    <div class="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center shadow-lg">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-slate-800">RoleFit CV Studio</h1>
+                        <p class="text-xs text-slate-500">Job-aligned CV variants</p>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-4">
+                    <button onclick="showImportModal()" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-primary-600 transition-colors">
+                        <span class="flex items-center space-x-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                            </svg>
+                            <span>Import</span>
+                        </span>
+                    </button>
+                    <button onclick="exportData()" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-primary-600 transition-colors">
+                        <span class="flex items-center space-x-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                            </svg>
+                            <span>Export</span>
+                        </span>
+                    </button>
+                    <button onclick="resetData()" class="px-4 py-2 text-sm font-medium text-red-500 hover:text-red-600 transition-colors">
+                        <span class="flex items-center space-x-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                            <span>Reset</span>
+                        </span>
+                    </button>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div id="mobileMenu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-2">
+                    <button onclick="showImportModal()" class="px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-lg text-left">Import Data</button>
+                    <button onclick="exportData()" class="px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-lg text-left">Export Data</button>
+                    <button onclick="resetData()" class="px-4 py-2 text-sm font-medium text-red-500 hover:bg-red-50 rounded-lg text-left">Reset Data</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="heroSection" class="pt-24 pb-16 gradient-bg text-white no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center animate-slide-up">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    Generate Truthful, Job-Aligned CV Variants
+                </h2>
+                <p class="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
+                    Create one Master Profile and instantly generate job-specific CV variants using automatic matching. 
+                    <span class="font-semibold">Privacy-first:</span> All processing runs locally in your browser.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <button onclick="startWizard()" class="px-8 py-4 bg-white text-primary-600 font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center space-x-2">
+                        <span>Get Started</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </button>
+                    <button onclick="scrollToFeatures()" class="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-xl hover:bg-white hover:text-primary-600 transition-all duration-300">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Privacy badge -->
+            <div class="mt-12 flex justify-center animate-bounce-subtle">
+                <div class="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2">
+                    <svg class="w-5 h-5 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                    <span class="text-sm font-medium">100% Private - No data leaves your browser</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="featuresSection" class="py-16 bg-white no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-slate-800 mb-4">Key Features</h3>
+                <p class="text-slate-600 max-w-2xl mx-auto">Powerful tools to create perfectly tailored CVs for every job application</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Feature 1: Master Profile -->
+                <div class="card-hover bg-slate-50 rounded-2xl p-6 border border-slate-100">
+                    <div class="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-lg font-semibold text-slate-800 mb-2">Master Profile</h4>
+                    <p class="text-slate-600 text-sm">Create once, reuse everywhere. Store your complete career history, skills, and achievements.</p>
+                </div>
+                
+                <!-- Feature 2: Smart Matching -->
+                <div class="card-hover bg-slate-50 rounded-2xl p-6 border border-slate-100">
+                    <div class="w-12 h-12 bg-accent-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-lg font-semibold text-slate-800 mb-2">ACM Engine</h4>
+                    <p class="text-slate-600 text-sm">Automatic keyword matching, skill extraction, and semantic similarity for optimal job alignment.</p>
+                </div>
+                
+                <!-- Feature 3: CV Generator -->
+                <div class="card-hover bg-slate-50 rounded-2xl p-6 border border-slate-100">
+                    <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-lg font-semibold text-slate-800 mb-2">CV Generator</h4>
+                    <p class="text-slate-600 text-sm">Generate multiple CV variants with different templates. Export as HTML or print-ready PDF.</p>
+                </div>
+                
+                <!-- Feature 4: Offline First -->
+                <div class="card-hover bg-slate-50 rounded-2xl p-6 border border-slate-100">
+                    <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-lg font-semibold text-slate-800 mb-2">Offline Storage</h4>
+                    <p class="text-slate-600 text-sm">All data stored locally. Import/export JSON backups. Works without internet connection.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wizard Section -->
+    <section id="wizardSection" class="hidden py-8 bg-slate-50 no-print">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Progress Steps -->
+            <div class="mb-8">
+                <div class="flex items-center justify-center space-x-4 md:space-x-8">
+                    <div class="step-indicator-container flex items-center" data-step="1">
+                        <div class="step-indicator w-10 h-10 rounded-full bg-primary-600 text-white flex items-center justify-center font-semibold shadow-lg">1</div>
+                        <span class="hidden md:block ml-2 text-sm font-medium text-slate-700">Profile</span>
+                    </div>
+                    <div class="w-8 md:w-16 h-1 bg-slate-200 rounded step-line" data-before="1"></div>
+                    <div class="step-indicator-container flex items-center" data-step="2">
+                        <div class="step-indicator w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-semibold">2</div>
+                        <span class="hidden md:block ml-2 text-sm font-medium text-slate-500">Job</span>
+                    </div>
+                    <div class="w-8 md:w-16 h-1 bg-slate-200 rounded step-line" data-before="2"></div>
+                    <div class="step-indicator-container flex items-center" data-step="3">
+                        <div class="step-indicator w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-semibold">3</div>
+                        <span class="hidden md:block ml-2 text-sm font-medium text-slate-500">Match</span>
+                    </div>
+                    <div class="w-8 md:w-16 h-1 bg-slate-200 rounded step-line" data-before="3"></div>
+                    <div class="step-indicator-container flex items-center" data-step="4">
+                        <div class="step-indicator w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-semibold">4</div>
+                        <span class="hidden md:block ml-2 text-sm font-medium text-slate-500">Generate</span>
+                    </div>
+                    <div class="w-8 md:w-16 h-1 bg-slate-200 rounded step-line" data-before="4"></div>
+                    <div class="step-indicator-container flex items-center" data-step="5">
+                        <div class="step-indicator w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-semibold">5</div>
+                        <span class="hidden md:block ml-2 text-sm font-medium text-slate-500">Export</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1: Master Profile Builder -->
+            <div id="step1" class="wizard-step active">
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 animate-slide-up">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-2xl font-bold text-slate-800">Create Your Master Profile</h3>
+                        <span class="text-sm text-slate-500">Step 1 of 5</span>
+                    </div>
+                    
+                    <!-- Tabs for Profile Sections -->
+                    <div class="border-b border-slate-200 mb-6">
+                        <nav class="flex space-x-4 overflow-x-auto" aria-label="Profile sections">
+                            <button onclick="showProfileTab('basics')" class="profile-tab active px-4 py-2 text-sm font-medium text-primary-600 border-b-2 border-primary-600 whitespace-nowrap" data-tab="basics">
+                                Basics
+                            </button>
+                            <button onclick="showProfileTab('experience')" class="profile-tab px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="experience">
+                                Experience
+                            </button>
+                            <button onclick="showProfileTab('education')" class="profile-tab px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="education">
+                                Education
+                            </button>
+                            <button onclick="showProfileTab('skills')" class="profile-tab px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="skills">
+                                Skills
+                            </button>
+                            <button onclick="showProfileTab('projects')" class="profile-tab px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="projects">
+                                Projects
+                            </button>
+                            <button onclick="showProfileTab('certifications')" class="profile-tab px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="certifications">
+                                Certifications
+                            </button>
+                        </nav>
+                    </div>
+
+                    <!-- Basics Tab -->
+                    <div id="tab-basics" class="profile-tab-content">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="fullName" class="block text-sm font-medium text-slate-700 mb-2">Full Name *</label>
+                                <input type="text" id="fullName" class="input-focus w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none" placeholder="John Doe" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-slate-700 mb-2">Email *</label>
+                                <input type="email" id="email" class="input-focus w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none" placeholder="john@example.com" required>
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-slate-700 mb-2">Phone</label>
+                                <input type="tel" id="phone" class="input-focus w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none" placeholder="+1 (555) 123-4567">
+                            </div>
+                            <div>
+                                <label for="location" class="block text-sm font-medium text-slate-700 mb-2">Location</label>
+                                <input type="text" id="location" class="input-focus w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none" placeholder="New York, NY">
+                            </div>
+                            <div>
+                                <label for="linkedin" class="block text-sm font-medium text-slate-700 mb-2">LinkedIn URL</label>
+                                <input type="url" id="linkedin" class="input-focus w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none" placeholder="https://linkedin.com/in/johndoe">
+                            </div>
+                            <div>
+                                <label for="portfolio" class="block text-sm font-medium text-slate-700 mb-2">Portfolio/Website</label>
+                                <input type="url" id="portfolio" class="input-focus w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none" placeholder="https://johndoe.com">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label for="summary" class="block text-sm font-medium text-slate-700 mb-2">Professional Summary</label>
+                                <textarea id="summary" rows="4" class="input-focus w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none resize-none" placeholder="Write a brief professional summary highlighting your key strengths and career objectives..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Experience Tab -->
+                    <div id="tab-experience" class="profile-tab-content hidden">
+                        <div id="experienceList" class="space-y-4 mb-4">
+                            <!-- Experience items will be added here -->
+                        </div>
+                        <button onclick="addExperience()" class="w-full py-3 border-2 border-dashed border-slate-300 rounded-xl text-slate-500 hover:border-primary-400 hover:text-primary-600 transition-colors flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            <span>Add Experience</span>
+                        </button>
+                    </div>
+
+                    <!-- Education Tab -->
+                    <div id="tab-education" class="profile-tab-content hidden">
+                        <div id="educationList" class="space-y-4 mb-4">
+                            <!-- Education items will be added here -->
+                        </div>
+                        <button onclick="addEducation()" class="w-full py-3 border-2 border-dashed border-slate-300 rounded-xl text-slate-500 hover:border-primary-400 hover:text-primary-600 transition-colors flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            <span>Add Education</span>
+                        </button>
+                    </div>
+
+                    <!-- Skills Tab -->
+                    <div id="tab-skills" class="profile-tab-content hidden">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">Technical Skills</label>
+                                <div id="technicalSkills" class="flex flex-wrap gap-2 mb-2">
+                                    <!-- Skill tags will be added here -->
+                                </div>
+                                <div class="flex gap-2">
+                                    <input type="text" id="newTechnicalSkill" class="flex-1 px-4 py-2 rounded-lg border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none text-sm" placeholder="Add a technical skill (e.g., JavaScript, Python)">
+                                    <button onclick="addSkill('technical')" class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm">Add</button>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">Tools & Technologies</label>
+                                <div id="toolSkills" class="flex flex-wrap gap-2 mb-2">
+                                    <!-- Tool tags will be added here -->
+                                </div>
+                                <div class="flex gap-2">
+                                    <input type="text" id="newToolSkill" class="flex-1 px-4 py-2 rounded-lg border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none text-sm" placeholder="Add a tool (e.g., Git, Docker, AWS)">
+                                    <button onclick="addSkill('tool')" class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm">Add</button>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">Soft Skills</label>
+                                <div id="softSkills" class="flex flex-wrap gap-2 mb-2">
+                                    <!-- Soft skill tags will be added here -->
+                                </div>
+                                <div class="flex gap-2">
+                                    <input type="text" id="newSoftSkill" class="flex-1 px-4 py-2 rounded-lg border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none text-sm" placeholder="Add a soft skill (e.g., Leadership, Communication)">
+                                    <button onclick="addSkill('soft')" class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Projects Tab -->
+                    <div id="tab-projects" class="profile-tab-content hidden">
+                        <div id="projectsList" class="space-y-4 mb-4">
+                            <!-- Project items will be added here -->
+                        </div>
+                        <button onclick="addProject()" class="w-full py-3 border-2 border-dashed border-slate-300 rounded-xl text-slate-500 hover:border-primary-400 hover:text-primary-600 transition-colors flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            <span>Add Project</span>
+                        </button>
+                    </div>
+
+                    <!-- Certifications Tab -->
+                    <div id="tab-certifications" class="profile-tab-content hidden">
+                        <div id="certificationsList" class="space-y-4 mb-4">
+                            <!-- Certification items will be added here -->
+                        </div>
+                        <button onclick="addCertification()" class="w-full py-3 border-2 border-dashed border-slate-300 rounded-xl text-slate-500 hover:border-primary-400 hover:text-primary-600 transition-colors flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            <span>Add Certification</span>
+                        </button>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between mt-8 pt-6 border-t border-slate-200">
+                        <button onclick="closeWizard()" class="px-6 py-3 text-slate-600 hover:text-slate-800 font-medium transition-colors">
+                            Cancel
+                        </button>
+                        <button onclick="nextStep(2)" class="px-8 py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 shadow-lg hover:shadow-xl transition-all flex items-center space-x-2">
+                            <span>Continue</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Job Intake -->
+            <div id="step2" class="wizard-step">
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 animate-slide-up">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-2xl font-bold text-slate-800">Add Job Details</h3>
+                        <span class="text-sm text-slate-500">Step 2 of 5</span>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="jobTitle" class="block text-sm font-medium text-slate-700 mb-2">Job Title *</label>
+                                <input type="text" id="jobTitle" class="input-focus w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none" placeholder="e.g., Senior Software Engineer" required>
+                            </div>
+                            <div>
+                                <label for="company" class="block text-sm font-medium text-slate-700 mb-2">Company Name</label>
+                                <input type="text" id="company" class="input-focus w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none" placeholder="e.g., Tech Corp Inc.">
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="seniority" class="block text-sm font-medium text-slate-700 mb-2">Seniority Level *</label>
+                                <select id="seniority" class="input-focus w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none bg-white">
+                                    <option value="">Select level...</option>
+                                    <option value="intern">Intern</option>
+                                    <option value="junior">Junior</option>
+                                    <option value="mid">Mid-Level</option>
+                                    <option value="senior">Senior</option>
+                                    <option value="lead">Lead / Principal</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="focus" class="block text-sm font-medium text-slate-700 mb-2">Role Focus</label>
+                                <select id="focus" class="input-focus w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none bg-white">
+                                    <option value="">Select focus...</option>
+                                    <option value="frontend">Frontend</option>
+                                    <option value="backend">Backend</option>
+                                    <option value="fullstack">Full Stack</option>
+                                    <option value="data">Data Engineering / Science</option>
+                                    <option value="devops">DevOps / SRE</option>
+                                    <option value="mobile">Mobile Development</option>
+                                    <option value="qa">QA / Testing</option>
+                                    <option value="product">Product Management</option>
+                                    <option value="design">UX / Design</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="jobDescription" class="block text-sm font-medium text-slate-700 mb-2">Job Description *</label>
+                            <textarea id="jobDescription" rows="10" class="input-focus w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none resize-none" placeholder="Paste the full job description here..."></textarea>
+                            <p class="text-xs text-slate-500 mt-2">Tip: Include the full job posting for best matching results</p>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between mt-8 pt-6 border-t border-slate-200">
+                        <button onclick="prevStep(1)" class="px-6 py-3 text-slate-600 hover:text-slate-800 font-medium transition-colors flex items-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
+                            </svg>
+                            <span>Back</span>
+                        </button>
+                        <button onclick="analyzeJob()" class="px-8 py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 shadow-lg hover:shadow-xl transition-all flex items-center space-x-2">
+                            <span>Analyze Job</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Match Summary -->
+            <div id="step3" class="wizard-step">
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 animate-slide-up">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-2xl font-bold text-slate-800">Match Analysis</h3>
+                        <span class="text-sm text-slate-500">Step 3 of 5</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Match Score -->
+                        <div class="lg:col-span-1">
+                            <div class="bg-gradient-to-br from-primary-50 to-accent-50 rounded-2xl p-6 text-center">
+                                <h4 class="text-sm font-medium text-slate-600 mb-4">Overall Match Score</h4>
+                                <div class="relative inline-block">
+                                    <svg class="w-32 h-32 transform -rotate-90">
+                                        <circle cx="64" cy="64" r="56" fill="none" stroke="#e2e8f0" stroke-width="12"/>
+                                        <circle id="matchScoreRing" cx="64" cy="64" r="56" fill="none" stroke="#22c55e" stroke-width="12" stroke-linecap="round" stroke-dasharray="352" stroke-dashoffset="352" class="match-score-ring"/>
+                                    </svg>
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <span id="matchScoreText" class="text-3xl font-bold text-slate-800">0%</span>
+                                    </div>
+                                </div>
+                                <p id="matchScoreLabel" class="text-sm text-slate-600 mt-4">Analyzing...</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Match Details -->
+                        <div class="lg:col-span-2 space-y-4">
+                            <div class="bg-slate-50 rounded-xl p-4">
+                                <h4 class="text-sm font-semibold text-slate-700 mb-3 flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    Matching Skills
+                                </h4>
+                                <div id="matchingSkills" class="flex flex-wrap gap-2">
+                                    <!-- Matching skills will be populated here -->
+                                </div>
+                            </div>
+                            
+                            <div class="bg-slate-50 rounded-xl p-4">
+                                <h4 class="text-sm font-semibold text-slate-700 mb-3 flex items-center">
+                                    <svg class="w-5 h-5 text-amber-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                                    </svg>
+                                    Skill Gaps (Consider Adding)
+                                </h4>
+                                <div id="skillGaps" class="flex flex-wrap gap-2">
+                                    <!-- Skill gaps will be populated here -->
+                                </div>
+                            </div>
+                            
+                            <div class="bg-slate-50 rounded-xl p-4">
+                                <h4 class="text-sm font-semibold text-slate-700 mb-3 flex items-center">
+                                    <svg class="w-5 h-5 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    Recommendations
+                                </h4>
+                                <ul id="recommendations" class="text-sm text-slate-600 space-y-2">
+                                    <!-- Recommendations will be populated here -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between mt-8 pt-6 border-t border-slate-200">
+                        <button onclick="prevStep(2)" class="px-6 py-3 text-slate-600 hover:text-slate-800 font-medium transition-colors flex items-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
+                            </svg>
+                            <span>Back</span>
+                        </button>
+                        <button onclick="nextStep(4)" class="px-8 py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 shadow-lg hover:shadow-xl transition-all flex items-center space-x-2">
+                            <span>Generate CV</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: CV Generator -->
+            <div id="step4" class="wizard-step">
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 animate-slide-up">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-2xl font-bold text-slate-800">Generate Your CV</h3>
+                        <span class="text-sm text-slate-500">Step 4 of 5</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Template Selection -->
+                        <div>
+                            <h4 class="text-sm font-semibold text-slate-700 mb-4">Choose Template</h4>
+                            <div class="space-y-3">
+                                <label class="template-option flex items-center p-4 border-2 border-primary-500 rounded-xl cursor-pointer bg-primary-50">
+                                    <input type="radio" name="template" value="classic" checked class="sr-only">
+                                    <div class="w-16 h-20 bg-white rounded border border-slate-200 mr-4 flex flex-col p-2">
+                                        <div class="h-2 bg-slate-300 rounded mb-1"></div>
+                                        <div class="h-1 bg-slate-200 rounded mb-1 w-3/4"></div>
+                                        <div class="h-1 bg-slate-200 rounded mb-2 w-1/2"></div>
+                                        <div class="flex-1 bg-slate-100 rounded"></div>
+                                    </div>
+                                    <div>
+                                        <span class="font-medium text-slate-800">Classic ATS</span>
+                                        <p class="text-xs text-slate-500">Single column, ATS-friendly format</p>
+                                    </div>
+                                    <svg class="w-5 h-5 text-primary-600 ml-auto template-check" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                    </svg>
+                                </label>
+                                
+                                <label class="template-option flex items-center p-4 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-slate-300 transition-colors">
+                                    <input type="radio" name="template" value="modern" class="sr-only">
+                                    <div class="w-16 h-20 bg-white rounded border border-slate-200 mr-4 flex p-2">
+                                        <div class="w-1/3 bg-primary-100 rounded mr-1"></div>
+                                        <div class="flex-1 flex flex-col">
+                                            <div class="h-2 bg-slate-300 rounded mb-1"></div>
+                                            <div class="h-1 bg-slate-200 rounded mb-1"></div>
+                                            <div class="flex-1 bg-slate-100 rounded"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="font-medium text-slate-800">Modern</span>
+                                        <p class="text-xs text-slate-500">Clean design with subtle accents</p>
+                                    </div>
+                                    <svg class="w-5 h-5 text-primary-600 ml-auto template-check hidden" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                    </svg>
+                                </label>
+                            </div>
+                            
+                            <!-- Section Order -->
+                            <h4 class="text-sm font-semibold text-slate-700 mb-4 mt-6">Section Order</h4>
+                            <div id="sectionOrder" class="space-y-2">
+                                <div class="flex items-center p-3 bg-slate-50 rounded-lg cursor-move" draggable="true" data-section="summary">
+                                    <svg class="w-5 h-5 text-slate-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path>
+                                    </svg>
+                                    <span class="text-sm text-slate-700">Professional Summary</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-slate-50 rounded-lg cursor-move" draggable="true" data-section="experience">
+                                    <svg class="w-5 h-5 text-slate-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path>
+                                    </svg>
+                                    <span class="text-sm text-slate-700">Work Experience</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-slate-50 rounded-lg cursor-move" draggable="true" data-section="skills">
+                                    <svg class="w-5 h-5 text-slate-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path>
+                                    </svg>
+                                    <span class="text-sm text-slate-700">Skills</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-slate-50 rounded-lg cursor-move" draggable="true" data-section="projects">
+                                    <svg class="w-5 h-5 text-slate-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path>
+                                    </svg>
+                                    <span class="text-sm text-slate-700">Projects</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-slate-50 rounded-lg cursor-move" draggable="true" data-section="education">
+                                    <svg class="w-5 h-5 text-slate-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path>
+                                    </svg>
+                                    <span class="text-sm text-slate-700">Education</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-slate-50 rounded-lg cursor-move" draggable="true" data-section="certifications">
+                                    <svg class="w-5 h-5 text-slate-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path>
+                                    </svg>
+                                    <span class="text-sm text-slate-700">Certifications</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- CV Preview -->
+                        <div>
+                            <h4 class="text-sm font-semibold text-slate-700 mb-4">Preview</h4>
+                            <div id="cvPreview" class="bg-white border border-slate-200 rounded-xl p-6 min-h-[400px] shadow-inner overflow-auto max-h-[600px]">
+                                <!-- CV preview will be rendered here -->
+                                <div class="text-center text-slate-400 py-12">
+                                    <svg class="w-16 h-16 mx-auto mb-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    <p>Your CV preview will appear here</p>
+                                </div>
+                            </div>
+                            <button onclick="generateCVPreview()" class="w-full mt-4 py-3 bg-accent-600 text-white font-semibold rounded-xl hover:bg-accent-700 transition-colors flex items-center justify-center space-x-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                </svg>
+                                <span>Refresh Preview</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between mt-8 pt-6 border-t border-slate-200">
+                        <button onclick="prevStep(3)" class="px-6 py-3 text-slate-600 hover:text-slate-800 font-medium transition-colors flex items-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
+                            </svg>
+                            <span>Back</span>
+                        </button>
+                        <button onclick="nextStep(5)" class="px-8 py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 shadow-lg hover:shadow-xl transition-all flex items-center space-x-2">
+                            <span>Continue to Export</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Export & Save -->
+            <div id="step5" class="wizard-step">
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 animate-slide-up">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-2xl font-bold text-slate-800">Export & Save</h3>
+                        <span class="text-sm text-slate-500">Step 5 of 5</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Print/PDF -->
+                        <div class="card-hover bg-slate-50 rounded-2xl p-6 border border-slate-100 text-center">
+                            <div class="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="font-semibold text-slate-800 mb-2">Print / Save as PDF</h4>
+                            <p class="text-sm text-slate-500 mb-4">Use browser's print function to save as PDF</p>
+                            <button onclick="printCV()" class="w-full py-3 bg-red-600 text-white font-medium rounded-xl hover:bg-red-700 transition-colors">
+                                Print CV
+                            </button>
+                        </div>
+                        
+                        <!-- Export JSON -->
+                        <div class="card-hover bg-slate-50 rounded-2xl p-6 border border-slate-100 text-center">
+                            <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                </svg>
+                            </div>
+                            <h4 class="font-semibold text-slate-800 mb-2">Export as JSON</h4>
+                            <p class="text-sm text-slate-500 mb-4">Complete backup of all your data</p>
+                            <button onclick="exportJSON()" class="w-full py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors">
+                                Download JSON
+                            </button>
+                        </div>
+                        
+                        <!-- Export CSV -->
+                        <div class="card-hover bg-slate-50 rounded-2xl p-6 border border-slate-100 text-center">
+                            <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="font-semibold text-slate-800 mb-2">Export as CSV</h4>
+                            <p class="text-sm text-slate-500 mb-4">Spreadsheet-compatible format</p>
+                            <button onclick="exportCSV()" class="w-full py-3 bg-green-600 text-white font-medium rounded-xl hover:bg-green-700 transition-colors">
+                                Download CSV
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Save Variant -->
+                    <div class="mt-8 p-6 bg-gradient-to-r from-primary-50 to-accent-50 rounded-2xl">
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                            <div>
+                                <h4 class="font-semibold text-slate-800 mb-1">Save This CV Variant</h4>
+                                <p class="text-sm text-slate-600">Save this tailored version for future reference</p>
+                            </div>
+                            <div class="flex items-center gap-4 w-full md:w-auto">
+                                <input type="text" id="variantName" class="flex-1 md:w-64 px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none" placeholder="e.g., Google SWE Application">
+                                <button onclick="saveVariant()" class="px-6 py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 transition-colors whitespace-nowrap">
+                                    Save Variant
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between mt-8 pt-6 border-t border-slate-200">
+                        <button onclick="prevStep(4)" class="px-6 py-3 text-slate-600 hover:text-slate-800 font-medium transition-colors flex items-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
+                            </svg>
+                            <span>Back</span>
+                        </button>
+                        <button onclick="finishWizard()" class="px-8 py-3 bg-accent-600 text-white font-semibold rounded-xl hover:bg-accent-700 shadow-lg hover:shadow-xl transition-all flex items-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Complete</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Saved Variants Section -->
+    <section id="variantsSection" class="hidden py-16 bg-white no-print">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between mb-8">
+                <h3 class="text-2xl font-bold text-slate-800">Saved CV Variants</h3>
+                <button onclick="startWizard()" class="px-4 py-2 bg-primary-600 text-white font-medium rounded-xl hover:bg-primary-700 transition-colors flex items-center space-x-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                    <span>Create New</span>
+                </button>
+            </div>
+            <div id="variantsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Saved variants will be displayed here -->
+            </div>
+            <div id="noVariants" class="text-center py-12 text-slate-500">
+                <svg class="w-16 h-16 mx-auto mb-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <p>No saved CV variants yet</p>
+                <p class="text-sm mt-2">Create your first job-tailored CV using the wizard</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-12 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <span class="text-xl font-bold">RoleFit CV Studio</span>
+                    </div>
+                    <p class="text-slate-400 text-sm">
+                        Generate truthful, job-aligned CV variants locally in your browser. 
+                        Privacy-first: no data leaves your device.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Key Features</h4>
+                    <ul class="space-y-2 text-slate-400 text-sm">
+                        <li>✓ Master Profile Builder</li>
+                        <li>✓ ACM Matching Engine</li>
+                        <li>✓ Multiple CV Templates</li>
+                        <li>✓ Offline-first Storage</li>
+                        <li>✓ JSON/CSV Export</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Responsible Use</h4>
+                    <p class="text-slate-400 text-sm mb-4">
+                        RoleFit helps prioritize and organize your <em>existing</em> experience. 
+                        It does not invent or fabricate content.
+                    </p>
+                    <p class="text-xs text-slate-500">
+                        Disclaimer: Generated CV variants are drafts. 
+                        Users are responsible for accuracy.
+                    </p>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 mt-8 pt-8 text-center text-slate-500 text-sm">
+                <p>© 2024 RoleFit CV Studio. MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Import Modal -->
+    <div id="importModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 animate-scale-in">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-bold text-slate-800">Import Data</h3>
+                <button onclick="closeImportModal()" class="p-2 hover:bg-slate-100 rounded-lg transition-colors">
+                    <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="space-y-4">
+                <div class="border-2 border-dashed border-slate-300 rounded-xl p-8 text-center hover:border-primary-400 transition-colors cursor-pointer" onclick="document.getElementById('importFile').click()">
+                    <input type="file" id="importFile" accept=".json" class="hidden" onchange="handleImport(event)">
+                    <svg class="w-12 h-12 mx-auto text-slate-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                    </svg>
+                    <p class="text-slate-600 mb-2">Click to upload or drag and drop</p>
+                    <p class="text-xs text-slate-500">JSON file only</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-slate-800 text-white px-6 py-3 rounded-xl shadow-lg transform translate-y-full opacity-0 transition-all duration-300 z-50">
+        <span id="toastMessage">Notification message</span>
+    </div>
+
+    <!-- Print-only CV content -->
+    <div id="printableCV" class="hidden print-only">
+        <!-- This will be populated when printing -->
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // ==================== Storage Module ====================
+        const Storage = {
+            KEYS: {
+                PROFILE: 'rolefit_profile',
+                JOBS: 'rolefit_jobs',
+                VARIANTS: 'rolefit_variants',
+                SETTINGS: 'rolefit_settings'
+            },
+
+            save(key, data) {
+                try {
+                    localStorage.setItem(key, JSON.stringify(data));
+                    return true;
+                } catch (e) {
+                    console.error('Storage save error:', e);
+                    return false;
+                }
+            },
+
+            load(key) {
+                try {
+                    const data = localStorage.getItem(key);
+                    return data ? JSON.parse(data) : null;
+                } catch (e) {
+                    console.error('Storage load error:', e);
+                    return null;
+                }
+            },
+
+            remove(key) {
+                localStorage.removeItem(key);
+            },
+
+            clear() {
+                Object.values(this.KEYS).forEach(key => this.remove(key));
+            }
+        };
+
+        // ==================== Data Models ====================
+        let profile = {
+            basics: {
+                fullName: '',
+                email: '',
+                phone: '',
+                location: '',
+                linkedin: '',
+                portfolio: ''
+            },
+            summary: '',
+            experience: [],
+            education: [],
+            skills: {
+                technical: [],
+                tools: [],
+                soft: []
+            },
+            projects: [],
+            certifications: []
+        };
+
+        let currentJob = {
+            title: '',
+            company: '',
+            seniority: '',
+            focus: '',
+            description: ''
+        };
+
+        let matchResult = {
+            score: 0,
+            matchingSkills: [],
+            skillGaps: [],
+            recommendations: []
+        };
+
+        let variants = [];
+        let currentStep = 1;
+
+        // ==================== Initialization ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSavedData();
+            setupEventListeners();
+            updateVariantsList();
+        });
+
+        function loadSavedData() {
+            const savedProfile = Storage.load(Storage.KEYS.PROFILE);
+            if (savedProfile) {
+                profile = { ...profile, ...savedProfile };
+                populateProfileForm();
+            }
+
+            const savedVariants = Storage.load(Storage.KEYS.VARIANTS);
+            if (savedVariants) {
+                variants = savedVariants;
+            }
+        }
+
+        function setupEventListeners() {
+            // Auto-save profile on input change
+            document.querySelectorAll('#step1 input, #step1 textarea').forEach(input => {
+                input.addEventListener('change', saveProfile);
+            });
+
+            // Template selection
+            document.querySelectorAll('.template-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.template-option').forEach(o => {
+                        o.classList.remove('border-primary-500', 'bg-primary-50');
+                        o.classList.add('border-slate-200');
+                        o.querySelector('.template-check').classList.add('hidden');
+                    });
+                    this.classList.add('border-primary-500', 'bg-primary-50');
+                    this.classList.remove('border-slate-200');
+                    this.querySelector('.template-check').classList.remove('hidden');
+                    this.querySelector('input').checked = true;
+                });
+            });
+
+            // Skill input enter key
+            ['newTechnicalSkill', 'newToolSkill', 'newSoftSkill'].forEach(id => {
+                document.getElementById(id)?.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        const type = id.replace('new', '').replace('Skill', '').toLowerCase();
+                        addSkill(type);
+                    }
+                });
+            });
+        }
+
+        // ==================== Wizard Navigation ====================
+        function startWizard() {
+            document.getElementById('heroSection').classList.add('hidden');
+            document.getElementById('featuresSection').classList.add('hidden');
+            document.getElementById('variantsSection').classList.add('hidden');
+            document.getElementById('wizardSection').classList.remove('hidden');
+            currentStep = 1;
+            updateStepIndicators();
+            showStep(1);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function closeWizard() {
+            document.getElementById('wizardSection').classList.add('hidden');
+            document.getElementById('heroSection').classList.remove('hidden');
+            document.getElementById('featuresSection').classList.remove('hidden');
+            if (variants.length > 0) {
+                document.getElementById('variantsSection').classList.remove('hidden');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showStep(step) {
+            document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
+            document.getElementById(`step${step}`).classList.add('active');
+            currentStep = step;
+            updateStepIndicators();
+        }
+
+        function nextStep(step) {
+            if (validateCurrentStep()) {
+                saveCurrentStepData();
+                showStep(step);
+                
+                // Trigger specific actions for certain steps
+                if (step === 3) {
+                    runMatchAnalysis();
+                } else if (step === 4) {
+                    generateCVPreview();
+                }
+            }
+        }
+
+        function prevStep(step) {
+            showStep(step);
+        }
+
+        function updateStepIndicators() {
+            document.querySelectorAll('.step-indicator-container').forEach(container => {
+                const step = parseInt(container.dataset.step);
+                const indicator = container.querySelector('.step-indicator');
+                const label = container.querySelector('span:not(.step-indicator)');
+                
+                if (step < currentStep) {
+                    indicator.classList.remove('bg-slate-200', 'text-slate-500', 'bg-primary-600');
+                    indicator.classList.add('bg-accent-500', 'text-white');
+                    indicator.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+                    if (label) {
+                        label.classList.remove('text-slate-500');
+                        label.classList.add('text-accent-600');
+                    }
+                } else if (step === currentStep) {
+                    indicator.classList.remove('bg-slate-200', 'text-slate-500', 'bg-accent-500');
+                    indicator.classList.add('bg-primary-600', 'text-white');
+                    indicator.textContent = step;
+                    if (label) {
+                        label.classList.remove('text-slate-500');
+                        label.classList.add('text-slate-700');
+                    }
+                } else {
+                    indicator.classList.remove('bg-primary-600', 'bg-accent-500', 'text-white');
+                    indicator.classList.add('bg-slate-200', 'text-slate-500');
+                    indicator.textContent = step;
+                    if (label) {
+                        label.classList.remove('text-slate-700', 'text-accent-600');
+                        label.classList.add('text-slate-500');
+                    }
+                }
+            });
+
+            // Update step lines
+            document.querySelectorAll('.step-line').forEach(line => {
+                const beforeStep = parseInt(line.dataset.before);
+                if (beforeStep < currentStep) {
+                    line.classList.remove('bg-slate-200');
+                    line.classList.add('bg-accent-500');
+                } else {
+                    line.classList.remove('bg-accent-500');
+                    line.classList.add('bg-slate-200');
+                }
+            });
+        }
+
+        function validateCurrentStep() {
+            if (currentStep === 1) {
+                const name = document.getElementById('fullName').value.trim();
+                const email = document.getElementById('email').value.trim();
+                if (!name || !email) {
+                    showToast('Please fill in your name and email');
+                    return false;
+                }
+            } else if (currentStep === 2) {
+                const title = document.getElementById('jobTitle').value.trim();
+                const seniority = document.getElementById('seniority').value;
+                const description = document.getElementById('jobDescription').value.trim();
+                if (!title || !seniority || !description) {
+                    showToast('Please fill in job title, seniority level, and description');
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // ==================== Profile Tab Management ====================
+        function showProfileTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.profile-tab').forEach(tab => {
+                tab.classList.remove('active', 'text-primary-600', 'border-primary-600', 'border-b-2');
+                tab.classList.add('text-slate-500');
+            });
+            const activeTab = document.querySelector(`.profile-tab[data-tab="${tabName}"]`);
+            activeTab.classList.add('active', 'text-primary-600', 'border-primary-600', 'border-b-2');
+            activeTab.classList.remove('text-slate-500');
+
+            // Show corresponding content
+            document.querySelectorAll('.profile-tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+        }
+
+        // ==================== Experience Management ====================
+        let experienceCounter = 0;
+
+        function addExperience() {
+            experienceCounter++;
+            const id = `exp_${experienceCounter}`;
+            const html = `
+                <div id="${id}" class="bg-slate-50 rounded-xl p-4 border border-slate-200 animate-slide-down">
+                    <div class="flex items-start justify-between mb-4">
+                        <h5 class="font-medium text-slate-700">Experience Entry</h5>
+                        <button onclick="removeExperience('${id}')" class="p-1 hover:bg-slate-200 rounded transition-colors">
+                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" class="exp-title px-3 py-2 rounded-lg border border-slate-200 focus:border-primary-500 outline-none text-sm" placeholder="Job Title" onchange="saveProfile()">
+                        <input type="text" class="exp-company px-3 py-2 rounded-lg border border-slate-200 focus:border-primary-500 outline-none text-sm" placeholder="Company" onchange="saveProfile()">
+                        <input type="text" class="exp-start px-3 py-2 rounded-lg border border-slate-200 focus:border-primary-500 outline-none text-sm" placeholder="Start Date (e.g., Jan 2020)" onchange="saveProfile()">
+                        <input type="text" class="exp-end px-3 py-2 rounded-lg border border-slate-200 focus:border-primary-500 outline-none text-sm" placeholder="End Date (or Present)" onchange="saveProfile()">
+                        <input type="text" class="exp-location md:col-span-2 px-3 py-2 rounded-lg border border-slate-200 focus:border-primary-500 outline-none text-sm" placeholder="Location" onchange="saveProfile()">
+                        <textarea class="exp-bullets md:col-span-2 px-3 py-2 rounded-lg border border-slate-200 focus:border-primary-500 outline-none text-sm resize-none" rows="4" placeholder="Key achievements and responsibilities (one per line)&#10;• Led a team of 5 engineers...&#10;• Increased system performance by 40%..." onchange="saveProfile()"></textarea>
+                    </div>
+                </div>
+            `;
+            document.getElementById('experienceList').insertAdjacentHTML('beforeend', html);
+        }
+
+        function removeExperience(id) {
+            document.getElementById(id).remove();
+            saveProfile();
+        }
+
+        // ==================== Education Management ====================
+        let educationCounter = 0;
+
+        function addEducation() {
+            educationCounter++;
+            const id = `edu_${educationCounter}`;
+            const html = `
+                <div id="${id}" class="bg-slate-50 rounded-xl p-4 border border-slate-200 animate-slide-down">
+                    <div class="flex items-start justify-between mb-4">
+                        <h5 class="font-medium text-slate-700">Education Entry</h5>
+                        <button onclick="removeEducation('${id}')" class="p-1 hover:bg-slate-200 rounded transition-colors">
+                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" class="edu-degree px-3 py-2 rounded-lg border border-slate-200 focus:border-primary-500 outline-none text-sm" placeholder="Degree (e.g., B.S. Computer Science)" onchange="saveProfile()">
+                        <input type="text" class="edu-school px-3 py-2 rounded-lg border border-slate-200 focus:border-primary-500 outline-none text-sm" placeholder="School / University" onchange="saveProfile()">
+                        <input type="text" class="edu-year px-3 py-2 rounded-lg border border-slate-200 focus:border-primary-500 outline-none text-sm" placeholder="Graduation Year" onchange="saveProfile()">
+                        <input type="text" class="edu-gpa px-3 py-2 rounded-lg border border-slate-200 focus:border-primary-500 outline-none text-sm" placeholder="GPA (optional)" onchange="saveProfile()">
+                    </div>
+                </div>
+            `;
+            document.getElementById('educationList').insertAdjacentHTML('beforeend', html);
+        }
+
+        function removeEducation(id) {
+            document.getElementById(id).remove();
+            saveProfile();
+        }
+
+        // ==================== Skills Management ====================
+        function addSkill(type) {
+            const inputId = type === 'technical' ? 'newTechnicalSkill' : 
+                           type === 'tool' ? 'newToolSkill' : 'newSoftSkill';
+            const containerId = type === 'technical' ? 'technicalSkills' : 
+                               type === 'tool' ? 'toolSkills' : 'softSkills';
+            
+            const input = document.getElementById(inputId);
+            const skill = input.value.trim();
+            
+            if (skill) {
+                const skillArray = type === 'technical' ? profile.skills.technical :
+                                  type === 'tool' ? profile.skills.tools : profile.skills.soft;
+                
+                if (!skillArray.includes(skill)) {
+                    skillArray.push(skill);
+                    renderSkillTag(containerId, skill, type);
+                    input.value = '';
+                    saveProfile();
+                }
+            }
+        }
+
+        function renderSkillTag(containerId, skill, type) {
+            const colors = {
+                technical: 'bg-blue-100 text-blue-700 hover:bg-blue-200',
+                tool: 'bg-purple-100 text-purple-700 hover:bg-purple-200',
+                soft: 'bg-green-100 text-green-700 hover:bg-green-200'
+            };
+            
+            // Sanitize skill name for safe HTML insertion
+            const sanitizedSkill = skill.replace(/[<>&"']/g, (char) => {
+                const entities = { '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&#39;' };
+                return entities[char];
+            });
+            
+            const tag = document.createElement('span');
+            tag.className = `skill-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${colors[type]} cursor-pointer`;
+            tag.dataset.skill = skill;
+            tag.dataset.type = type;
+            tag.innerHTML = `
+                ${sanitizedSkill}
+                <button class="skill-remove-btn ml-2 hover:opacity-75">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            `;
+            // Use event listener instead of inline onclick
+            tag.querySelector('.skill-remove-btn').addEventListener('click', () => removeSkill(type, skill));
+            document.getElementById(containerId).appendChild(tag);
+        }
+
+        function removeSkill(type, skill) {
+            const skillArray = type === 'technical' ? profile.skills.technical :
+                              type === 'tool' ? profile.skills.tools : profile.skills.soft;
+            const index = skillArray.indexOf(skill);
+            if (index > -1) {
+                skillArray.splice(index, 1);
+                saveProfile();
+                renderAllSkills();
+            }
+        }
+
+        function renderAllSkills() {
+            ['technicalSkills', 'toolSkills', 'softSkills'].forEach(id => {
+                document.getElementById(id).innerHTML = '';
+            });
+            
+            profile.skills.technical.forEach(skill => renderSkillTag('technicalSkills', skill, 'technical'));
+            profile.skills.tools.forEach(skill => renderSkillTag('toolSkills', skill, 'tool'));
+            profile.skills.soft.forEach(skill => renderSkillTag('softSkills', skill, 'soft'));
+        }
+
+        // ==================== Projects Management ====================
+        let projectCounter = 0;
+
+        function addProject() {
+            projectCounter++;
+            const id = `proj_${projectCounter}`;
+            const html = `
+                <div id="${id}" class="bg-slate-50 rounded-xl p-4 border border-slate-200 animate-slide-down">
+                    <div class="flex items-start justify-between mb-4">
+                        <h5 class="font-medium text-slate-700">Project Entry</h5>
+                        <button onclick="removeProject('${id}')" class="p-1 hover:bg-slate-200 rounded transition-colors">
+                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 gap-4">
+                        <input type="text" class="proj-name px-3 py-2 rounded-lg border border-slate-200 focus:border-primary-500 outline-none text-sm" placeholder="Project Name" onchange="saveProfile()">
+                        <input type="url" class="proj-link px-3 py-2 rounded-lg border border-slate-200 focus:border-primary-500 outline-none text-sm" placeholder="Project URL (optional)" onchange="saveProfile()">
+                        <textarea class="proj-description px-3 py-2 rounded-lg border border-slate-200 focus:border-primary-500 outline-none text-sm resize-none" rows="3" placeholder="Brief description of the project and your contributions..." onchange="saveProfile()"></textarea>
+                        <input type="text" class="proj-tech px-3 py-2 rounded-lg border border-slate-200 focus:border-primary-500 outline-none text-sm" placeholder="Technologies used (comma-separated)" onchange="saveProfile()">
+                    </div>
+                </div>
+            `;
+            document.getElementById('projectsList').insertAdjacentHTML('beforeend', html);
+        }
+
+        function removeProject(id) {
+            document.getElementById(id).remove();
+            saveProfile();
+        }
+
+        // ==================== Certifications Management ====================
+        let certCounter = 0;
+
+        function addCertification() {
+            certCounter++;
+            const id = `cert_${certCounter}`;
+            const html = `
+                <div id="${id}" class="bg-slate-50 rounded-xl p-4 border border-slate-200 animate-slide-down">
+                    <div class="flex items-start justify-between mb-4">
+                        <h5 class="font-medium text-slate-700">Certification Entry</h5>
+                        <button onclick="removeCertification('${id}')" class="p-1 hover:bg-slate-200 rounded transition-colors">
+                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" class="cert-name px-3 py-2 rounded-lg border border-slate-200 focus:border-primary-500 outline-none text-sm" placeholder="Certification Name" onchange="saveProfile()">
+                        <input type="text" class="cert-issuer px-3 py-2 rounded-lg border border-slate-200 focus:border-primary-500 outline-none text-sm" placeholder="Issuing Organization" onchange="saveProfile()">
+                        <input type="text" class="cert-date px-3 py-2 rounded-lg border border-slate-200 focus:border-primary-500 outline-none text-sm" placeholder="Date Obtained" onchange="saveProfile()">
+                        <input type="text" class="cert-id px-3 py-2 rounded-lg border border-slate-200 focus:border-primary-500 outline-none text-sm" placeholder="Credential ID (optional)" onchange="saveProfile()">
+                    </div>
+                </div>
+            `;
+            document.getElementById('certificationsList').insertAdjacentHTML('beforeend', html);
+        }
+
+        function removeCertification(id) {
+            document.getElementById(id).remove();
+            saveProfile();
+        }
+
+        // ==================== Data Save/Load ====================
+        function saveProfile() {
+            profile.basics = {
+                fullName: document.getElementById('fullName')?.value || '',
+                email: document.getElementById('email')?.value || '',
+                phone: document.getElementById('phone')?.value || '',
+                location: document.getElementById('location')?.value || '',
+                linkedin: document.getElementById('linkedin')?.value || '',
+                portfolio: document.getElementById('portfolio')?.value || ''
+            };
+            profile.summary = document.getElementById('summary')?.value || '';
+            
+            // Save experience
+            profile.experience = [];
+            document.querySelectorAll('#experienceList > div').forEach(div => {
+                profile.experience.push({
+                    title: div.querySelector('.exp-title')?.value || '',
+                    company: div.querySelector('.exp-company')?.value || '',
+                    startDate: div.querySelector('.exp-start')?.value || '',
+                    endDate: div.querySelector('.exp-end')?.value || '',
+                    location: div.querySelector('.exp-location')?.value || '',
+                    bullets: (div.querySelector('.exp-bullets')?.value || '').split('\n').filter(b => b.trim())
+                });
+            });
+
+            // Save education
+            profile.education = [];
+            document.querySelectorAll('#educationList > div').forEach(div => {
+                profile.education.push({
+                    degree: div.querySelector('.edu-degree')?.value || '',
+                    school: div.querySelector('.edu-school')?.value || '',
+                    year: div.querySelector('.edu-year')?.value || '',
+                    gpa: div.querySelector('.edu-gpa')?.value || ''
+                });
+            });
+
+            // Save projects
+            profile.projects = [];
+            document.querySelectorAll('#projectsList > div').forEach(div => {
+                profile.projects.push({
+                    name: div.querySelector('.proj-name')?.value || '',
+                    link: div.querySelector('.proj-link')?.value || '',
+                    description: div.querySelector('.proj-description')?.value || '',
+                    technologies: div.querySelector('.proj-tech')?.value || ''
+                });
+            });
+
+            // Save certifications
+            profile.certifications = [];
+            document.querySelectorAll('#certificationsList > div').forEach(div => {
+                profile.certifications.push({
+                    name: div.querySelector('.cert-name')?.value || '',
+                    issuer: div.querySelector('.cert-issuer')?.value || '',
+                    date: div.querySelector('.cert-date')?.value || '',
+                    credentialId: div.querySelector('.cert-id')?.value || ''
+                });
+            });
+
+            Storage.save(Storage.KEYS.PROFILE, profile);
+        }
+
+        function saveCurrentStepData() {
+            if (currentStep === 1) {
+                saveProfile();
+            } else if (currentStep === 2) {
+                currentJob = {
+                    title: document.getElementById('jobTitle').value,
+                    company: document.getElementById('company').value,
+                    seniority: document.getElementById('seniority').value,
+                    focus: document.getElementById('focus').value,
+                    description: document.getElementById('jobDescription').value
+                };
+            }
+        }
+
+        function populateProfileForm() {
+            document.getElementById('fullName').value = profile.basics.fullName || '';
+            document.getElementById('email').value = profile.basics.email || '';
+            document.getElementById('phone').value = profile.basics.phone || '';
+            document.getElementById('location').value = profile.basics.location || '';
+            document.getElementById('linkedin').value = profile.basics.linkedin || '';
+            document.getElementById('portfolio').value = profile.basics.portfolio || '';
+            document.getElementById('summary').value = profile.summary || '';
+
+            // Populate experience
+            document.getElementById('experienceList').innerHTML = '';
+            profile.experience.forEach((exp, i) => {
+                addExperience();
+                const div = document.getElementById(`exp_${experienceCounter}`);
+                div.querySelector('.exp-title').value = exp.title;
+                div.querySelector('.exp-company').value = exp.company;
+                div.querySelector('.exp-start').value = exp.startDate;
+                div.querySelector('.exp-end').value = exp.endDate;
+                div.querySelector('.exp-location').value = exp.location;
+                div.querySelector('.exp-bullets').value = exp.bullets.join('\n');
+            });
+
+            // Populate education
+            document.getElementById('educationList').innerHTML = '';
+            profile.education.forEach((edu, i) => {
+                addEducation();
+                const div = document.getElementById(`edu_${educationCounter}`);
+                div.querySelector('.edu-degree').value = edu.degree;
+                div.querySelector('.edu-school').value = edu.school;
+                div.querySelector('.edu-year').value = edu.year;
+                div.querySelector('.edu-gpa').value = edu.gpa;
+            });
+
+            // Populate projects
+            document.getElementById('projectsList').innerHTML = '';
+            profile.projects.forEach((proj, i) => {
+                addProject();
+                const div = document.getElementById(`proj_${projectCounter}`);
+                div.querySelector('.proj-name').value = proj.name;
+                div.querySelector('.proj-link').value = proj.link;
+                div.querySelector('.proj-description').value = proj.description;
+                div.querySelector('.proj-tech').value = proj.technologies;
+            });
+
+            // Populate certifications
+            document.getElementById('certificationsList').innerHTML = '';
+            profile.certifications.forEach((cert, i) => {
+                addCertification();
+                const div = document.getElementById(`cert_${certCounter}`);
+                div.querySelector('.cert-name').value = cert.name;
+                div.querySelector('.cert-issuer').value = cert.issuer;
+                div.querySelector('.cert-date').value = cert.date;
+                div.querySelector('.cert-id').value = cert.credentialId;
+            });
+
+            // Render skills
+            renderAllSkills();
+        }
+
+        // ==================== ACM Matching Engine ====================
+        function analyzeJob() {
+            if (validateCurrentStep()) {
+                saveCurrentStepData();
+                showStep(3);
+                runMatchAnalysis();
+            }
+        }
+
+        function runMatchAnalysis() {
+            // Extract keywords from job description
+            const jdText = currentJob.description.toLowerCase();
+            const jdWords = jdText.split(/\W+/).filter(w => w.length > 2);
+            
+            // Common tech keywords to look for
+            const techKeywords = [
+                'javascript', 'python', 'java', 'react', 'angular', 'vue', 'node', 'nodejs',
+                'typescript', 'sql', 'nosql', 'mongodb', 'postgresql', 'mysql', 'aws', 'azure',
+                'gcp', 'docker', 'kubernetes', 'ci', 'cd', 'git', 'agile', 'scrum', 'rest',
+                'api', 'graphql', 'html', 'css', 'sass', 'tailwind', 'bootstrap', 'redux',
+                'webpack', 'babel', 'npm', 'yarn', 'linux', 'unix', 'bash', 'shell',
+                'machine', 'learning', 'ai', 'ml', 'data', 'analytics', 'tensorflow', 'pytorch',
+                'golang', 'go', 'rust', 'c++', 'c#', '.net', 'spring', 'django', 'flask',
+                'express', 'fastapi', 'microservices', 'architecture', 'design', 'patterns'
+            ];
+
+            // Extract required skills from JD
+            const jdSkills = [];
+            techKeywords.forEach(keyword => {
+                if (jdText.includes(keyword)) {
+                    jdSkills.push(keyword);
+                }
+            });
+
+            // Also extract from specific patterns
+            const skillPatterns = jdText.match(/\b(experience with|proficiency in|knowledge of|familiar with|expertise in)\s+([^,.]+)/gi) || [];
+            
+            // Get all user skills
+            const allUserSkills = [
+                ...profile.skills.technical,
+                ...profile.skills.tools,
+                ...profile.skills.soft
+            ].map(s => s.toLowerCase());
+
+            // Find matching skills
+            const matchingSkills = [];
+            const skillGaps = [];
+
+            jdSkills.forEach(skill => {
+                const normalizedSkill = skill.toLowerCase();
+                const hasSkill = allUserSkills.some(us => 
+                    us.includes(normalizedSkill) || normalizedSkill.includes(us)
+                );
+                if (hasSkill) {
+                    matchingSkills.push(skill);
+                } else {
+                    skillGaps.push(skill);
+                }
+            });
+
+            // Calculate match score
+            const totalJdSkills = jdSkills.length || 1;
+            const score = Math.min(100, Math.round((matchingSkills.length / totalJdSkills) * 100 + 
+                (profile.experience.length > 0 ? 20 : 0) +
+                (profile.education.length > 0 ? 10 : 0)));
+
+            // Generate recommendations
+            const recommendations = [];
+            if (skillGaps.length > 0) {
+                recommendations.push(`Consider highlighting any experience with: ${skillGaps.slice(0, 3).join(', ')}`);
+            }
+            if (profile.experience.length === 0) {
+                recommendations.push('Add your work experience to improve your match score');
+            }
+            if (profile.summary.length < 50) {
+                recommendations.push('Expand your professional summary with relevant keywords');
+            }
+            if (currentJob.seniority === 'senior' || currentJob.seniority === 'lead') {
+                recommendations.push('Emphasize leadership experience and mentoring accomplishments');
+            }
+            if (matchingSkills.length > 5) {
+                recommendations.push('Great skill match! Prioritize these in your CV');
+            }
+
+            matchResult = {
+                score,
+                matchingSkills,
+                skillGaps: skillGaps.slice(0, 10),
+                recommendations
+            };
+
+            // Animate and display results
+            displayMatchResults();
+        }
+
+        function displayMatchResults() {
+            // Animate score ring
+            const scoreRing = document.getElementById('matchScoreRing');
+            const scoreText = document.getElementById('matchScoreText');
+            const scoreLabel = document.getElementById('matchScoreLabel');
+            
+            const circumference = 2 * Math.PI * 56;
+            const offset = circumference - (matchResult.score / 100) * circumference;
+            
+            // Determine color based on score
+            let color = '#ef4444'; // red
+            let label = 'Needs Improvement';
+            if (matchResult.score >= 80) {
+                color = '#22c55e'; // green
+                label = 'Excellent Match!';
+            } else if (matchResult.score >= 60) {
+                color = '#eab308'; // yellow
+                label = 'Good Match';
+            } else if (matchResult.score >= 40) {
+                color = '#f97316'; // orange
+                label = 'Fair Match';
+            }
+            
+            scoreRing.style.stroke = color;
+            setTimeout(() => {
+                scoreRing.style.strokeDashoffset = offset;
+            }, 100);
+            
+            // Animate score number
+            let currentScore = 0;
+            const scoreInterval = setInterval(() => {
+                currentScore += 2;
+                if (currentScore >= matchResult.score) {
+                    currentScore = matchResult.score;
+                    clearInterval(scoreInterval);
+                }
+                scoreText.textContent = `${currentScore}%`;
+            }, 20);
+            
+            scoreLabel.textContent = label;
+
+            // Display matching skills
+            const matchingContainer = document.getElementById('matchingSkills');
+            matchingContainer.innerHTML = matchResult.matchingSkills.length > 0 
+                ? matchResult.matchingSkills.map(skill => 
+                    `<span class="inline-block px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">${skill}</span>`
+                ).join('')
+                : '<span class="text-slate-500 text-sm">No direct skill matches found</span>';
+
+            // Display skill gaps
+            const gapsContainer = document.getElementById('skillGaps');
+            gapsContainer.innerHTML = matchResult.skillGaps.length > 0
+                ? matchResult.skillGaps.map(skill => 
+                    `<span class="inline-block px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-medium">${skill}</span>`
+                ).join('')
+                : '<span class="text-slate-500 text-sm">No significant skill gaps detected</span>';
+
+            // Display recommendations
+            const recsContainer = document.getElementById('recommendations');
+            recsContainer.innerHTML = matchResult.recommendations.map(rec => 
+                `<li class="flex items-start"><span class="text-blue-500 mr-2">•</span>${rec}</li>`
+            ).join('');
+        }
+
+        // ==================== CV Generator ====================
+        function generateCVPreview() {
+            const template = document.querySelector('input[name="template"]:checked')?.value || 'classic';
+            const cvContent = buildCVContent(template);
+            document.getElementById('cvPreview').innerHTML = cvContent;
+        }
+
+        function buildCVContent(template) {
+            const isModern = template === 'modern';
+            
+            let html = `<div class="${isModern ? 'flex gap-6' : ''}">`;
+            
+            if (isModern) {
+                // Modern template - sidebar with contact and skills
+                html += `
+                    <div class="w-1/3 bg-slate-100 p-4 rounded-lg">
+                        <div class="mb-6">
+                            <h3 class="text-lg font-bold text-slate-800 mb-2">${profile.basics.fullName || 'Your Name'}</h3>
+                            <div class="text-xs text-slate-600 space-y-1">
+                                ${profile.basics.email ? `<p>📧 ${profile.basics.email}</p>` : ''}
+                                ${profile.basics.phone ? `<p>📱 ${profile.basics.phone}</p>` : ''}
+                                ${profile.basics.location ? `<p>📍 ${profile.basics.location}</p>` : ''}
+                                ${profile.basics.linkedin ? `<p>🔗 LinkedIn</p>` : ''}
+                            </div>
+                        </div>
+                        ${renderSkillsSection(true)}
+                    </div>
+                    <div class="w-2/3">
+                `;
+            } else {
+                // Classic template - header
+                html += `
+                    <div class="text-center mb-4 pb-4 border-b-2 border-slate-300">
+                        <h2 class="text-2xl font-bold text-slate-800">${profile.basics.fullName || 'Your Name'}</h2>
+                        <div class="text-sm text-slate-600 mt-1">
+                            ${[profile.basics.email, profile.basics.phone, profile.basics.location].filter(Boolean).join(' | ')}
+                        </div>
+                        ${profile.basics.linkedin || profile.basics.portfolio ? `
+                            <div class="text-sm text-primary-600 mt-1">
+                                ${profile.basics.linkedin ? 'LinkedIn' : ''} ${profile.basics.portfolio ? '| Portfolio' : ''}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }
+
+            // Summary
+            if (profile.summary) {
+                html += `
+                    <div class="mb-4">
+                        <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wide mb-2 ${isModern ? '' : 'border-b border-slate-300 pb-1'}">Summary</h3>
+                        <p class="text-sm text-slate-600">${profile.summary}</p>
+                    </div>
+                `;
+            }
+
+            // Experience
+            if (profile.experience.length > 0) {
+                html += `
+                    <div class="mb-4">
+                        <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wide mb-2 ${isModern ? '' : 'border-b border-slate-300 pb-1'}">Experience</h3>
+                        ${profile.experience.map(exp => `
+                            <div class="mb-3">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h4 class="font-semibold text-slate-800 text-sm">${exp.title}</h4>
+                                        <p class="text-xs text-slate-600">${exp.company}${exp.location ? ` • ${exp.location}` : ''}</p>
+                                    </div>
+                                    <span class="text-xs text-slate-500">${exp.startDate} - ${exp.endDate}</span>
+                                </div>
+                                ${exp.bullets.length > 0 ? `
+                                    <ul class="mt-1 text-xs text-slate-600 space-y-1">
+                                        ${exp.bullets.map(b => `<li class="flex"><span class="mr-2">•</span><span>${b}</span></li>`).join('')}
+                                    </ul>
+                                ` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            // Skills (for classic template)
+            if (!isModern) {
+                html += renderSkillsSection(false);
+            }
+
+            // Projects
+            if (profile.projects.length > 0) {
+                html += `
+                    <div class="mb-4">
+                        <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wide mb-2 ${isModern ? '' : 'border-b border-slate-300 pb-1'}">Projects</h3>
+                        ${profile.projects.map(proj => `
+                            <div class="mb-2">
+                                <h4 class="font-semibold text-slate-800 text-sm">${proj.name}</h4>
+                                <p class="text-xs text-slate-600">${proj.description}</p>
+                                ${proj.technologies ? `<p class="text-xs text-primary-600 mt-1">Tech: ${proj.technologies}</p>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            // Education
+            if (profile.education.length > 0) {
+                html += `
+                    <div class="mb-4">
+                        <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wide mb-2 ${isModern ? '' : 'border-b border-slate-300 pb-1'}">Education</h3>
+                        ${profile.education.map(edu => `
+                            <div class="mb-2">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h4 class="font-semibold text-slate-800 text-sm">${edu.degree}</h4>
+                                        <p class="text-xs text-slate-600">${edu.school}</p>
+                                    </div>
+                                    <span class="text-xs text-slate-500">${edu.year}</span>
+                                </div>
+                                ${edu.gpa ? `<p class="text-xs text-slate-500">GPA: ${edu.gpa}</p>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            // Certifications
+            if (profile.certifications.length > 0) {
+                html += `
+                    <div class="mb-4">
+                        <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wide mb-2 ${isModern ? '' : 'border-b border-slate-300 pb-1'}">Certifications</h3>
+                        ${profile.certifications.map(cert => `
+                            <div class="mb-1">
+                                <span class="font-semibold text-slate-800 text-sm">${cert.name}</span>
+                                <span class="text-xs text-slate-600"> - ${cert.issuer} (${cert.date})</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            if (isModern) {
+                html += '</div>'; // Close main content div
+            }
+            
+            html += '</div>';
+            return html;
+        }
+
+        function renderSkillsSection(isModern) {
+            const allSkills = [...profile.skills.technical, ...profile.skills.tools, ...profile.skills.soft];
+            if (allSkills.length === 0) return '';
+            
+            if (isModern) {
+                return `
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wide mb-2">Skills</h3>
+                        <div class="flex flex-wrap gap-1">
+                            ${allSkills.map(skill => `<span class="text-xs bg-white px-2 py-1 rounded">${skill}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            } else {
+                return `
+                    <div class="mb-4">
+                        <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wide mb-2 border-b border-slate-300 pb-1">Skills</h3>
+                        <div class="text-sm text-slate-600">
+                            ${profile.skills.technical.length > 0 ? `<p><strong>Technical:</strong> ${profile.skills.technical.join(', ')}</p>` : ''}
+                            ${profile.skills.tools.length > 0 ? `<p><strong>Tools:</strong> ${profile.skills.tools.join(', ')}</p>` : ''}
+                            ${profile.skills.soft.length > 0 ? `<p><strong>Soft Skills:</strong> ${profile.skills.soft.join(', ')}</p>` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // ==================== Export Functions ====================
+        function printCV() {
+            const cvContent = document.getElementById('cvPreview').innerHTML;
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>CV - ${profile.basics.fullName || 'My CV'}</title>
+                    <script src="https://cdn.tailwindcss.com"></` + `script>
+                    <style>
+                        body { font-family: 'Inter', system-ui, sans-serif; padding: 20px; }
+                        @media print { body { padding: 0; } }
+                    </style>
+                </head>
+                <body>
+                    ${cvContent}
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            setTimeout(() => printWindow.print(), 500);
+        }
+
+        function exportJSON() {
+            const data = {
+                profile,
+                jobs: [currentJob],
+                variants,
+                exportDate: new Date().toISOString()
+            };
+            downloadFile(JSON.stringify(data, null, 2), 'rolefit-cv-data.json', 'application/json');
+            showToast('JSON exported successfully!');
+        }
+
+        function exportCSV() {
+            let csv = 'Section,Field,Value\n';
+            
+            // Basics
+            Object.entries(profile.basics).forEach(([key, value]) => {
+                csv += `Basics,${key},"${(value || '').replace(/"/g, '""')}"\n`;
+            });
+            
+            // Summary
+            csv += `Summary,text,"${(profile.summary || '').replace(/"/g, '""')}"\n`;
+            
+            // Experience
+            profile.experience.forEach((exp, i) => {
+                csv += `Experience ${i+1},title,"${(exp.title || '').replace(/"/g, '""')}"\n`;
+                csv += `Experience ${i+1},company,"${(exp.company || '').replace(/"/g, '""')}"\n`;
+                csv += `Experience ${i+1},dates,"${(exp.startDate || '')} - ${(exp.endDate || '')}"\n`;
+                csv += `Experience ${i+1},bullets,"${(exp.bullets || []).join('; ').replace(/"/g, '""')}"\n`;
+            });
+            
+            // Skills
+            csv += `Skills,technical,"${(profile.skills.technical || []).join(', ')}"\n`;
+            csv += `Skills,tools,"${(profile.skills.tools || []).join(', ')}"\n`;
+            csv += `Skills,soft,"${(profile.skills.soft || []).join(', ')}"\n`;
+            
+            downloadFile(csv, 'rolefit-cv-data.csv', 'text/csv');
+            showToast('CSV exported successfully!');
+        }
+
+        function downloadFile(content, filename, type) {
+            const blob = new Blob([content], { type });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function exportData() {
+            exportJSON();
+        }
+
+        // ==================== Import Functions ====================
+        function showImportModal() {
+            document.getElementById('importModal').classList.remove('hidden');
+        }
+
+        function closeImportModal() {
+            document.getElementById('importModal').classList.add('hidden');
+        }
+
+        function handleImport(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.profile) {
+                        profile = { ...profile, ...data.profile };
+                        Storage.save(Storage.KEYS.PROFILE, profile);
+                        populateProfileForm();
+                    }
+                    if (data.variants) {
+                        variants = data.variants;
+                        Storage.save(Storage.KEYS.VARIANTS, variants);
+                        updateVariantsList();
+                    }
+                    closeImportModal();
+                    showToast('Data imported successfully!');
+                } catch (err) {
+                    showToast('Error: Invalid JSON file');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // ==================== Variants Management ====================
+        function saveVariant() {
+            const name = document.getElementById('variantName').value.trim();
+            if (!name) {
+                showToast('Please enter a name for this variant');
+                return;
+            }
+
+            const variant = {
+                id: Date.now(),
+                name,
+                jobTitle: currentJob.title,
+                company: currentJob.company,
+                matchScore: matchResult.score,
+                createdAt: new Date().toISOString(),
+                profile: JSON.parse(JSON.stringify(profile)),
+                job: JSON.parse(JSON.stringify(currentJob)),
+                template: document.querySelector('input[name="template"]:checked')?.value || 'classic'
+            };
+
+            variants.push(variant);
+            Storage.save(Storage.KEYS.VARIANTS, variants);
+            updateVariantsList();
+            showToast('CV variant saved!');
+            document.getElementById('variantName').value = '';
+        }
+
+        function updateVariantsList() {
+            const list = document.getElementById('variantsList');
+            const noVariants = document.getElementById('noVariants');
+            
+            if (variants.length === 0) {
+                list.innerHTML = '';
+                noVariants?.classList.remove('hidden');
+                return;
+            }
+
+            noVariants?.classList.add('hidden');
+            list.innerHTML = variants.map(v => `
+                <div class="card-hover bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+                    <div class="flex items-start justify-between mb-3">
+                        <h4 class="font-semibold text-slate-800">${v.name}</h4>
+                        <span class="px-2 py-1 rounded-full text-xs font-medium ${
+                            v.matchScore >= 80 ? 'bg-green-100 text-green-700' :
+                            v.matchScore >= 60 ? 'bg-yellow-100 text-yellow-700' :
+                            'bg-red-100 text-red-700'
+                        }">${v.matchScore}% match</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-2">${v.jobTitle}${v.company ? ` at ${v.company}` : ''}</p>
+                    <p class="text-xs text-slate-400 mb-4">${new Date(v.createdAt).toLocaleDateString()}</p>
+                    <div class="flex gap-2">
+                        <button onclick="loadVariant(${v.id})" class="flex-1 py-2 text-sm bg-primary-50 text-primary-600 rounded-lg hover:bg-primary-100 transition-colors">
+                            View
+                        </button>
+                        <button onclick="deleteVariant(${v.id})" class="px-3 py-2 text-sm text-red-500 hover:bg-red-50 rounded-lg transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadVariant(id) {
+            const variant = variants.find(v => v.id === id);
+            if (variant) {
+                profile = variant.profile;
+                currentJob = variant.job;
+                populateProfileForm();
+                startWizard();
+                showStep(4);
+                generateCVPreview();
+            }
+        }
+
+        function deleteVariant(id) {
+            if (confirm('Are you sure you want to delete this CV variant?')) {
+                variants = variants.filter(v => v.id !== id);
+                Storage.save(Storage.KEYS.VARIANTS, variants);
+                updateVariantsList();
+                showToast('Variant deleted');
+            }
+        }
+
+        // ==================== Utility Functions ====================
+        function resetData() {
+            if (confirm('Are you sure you want to reset all data? This cannot be undone.')) {
+                Storage.clear();
+                profile = {
+                    basics: { fullName: '', email: '', phone: '', location: '', linkedin: '', portfolio: '' },
+                    summary: '',
+                    experience: [],
+                    education: [],
+                    skills: { technical: [], tools: [], soft: [] },
+                    projects: [],
+                    certifications: []
+                };
+                variants = [];
+                populateProfileForm();
+                updateVariantsList();
+                showToast('All data has been reset');
+            }
+        }
+
+        function finishWizard() {
+            showToast('CV generation complete!');
+            closeWizard();
+            document.getElementById('variantsSection').classList.remove('hidden');
+            updateVariantsList();
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        function scrollToFeatures() {
+            document.getElementById('featuresSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.remove('translate-y-full', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-full', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
