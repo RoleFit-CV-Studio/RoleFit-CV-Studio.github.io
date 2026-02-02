@@ -1,0 +1,100 @@
+/**
+ * RoleFit CV Studio - Print Styles
+ * 
+ * These styles are applied when printing or exporting to PDF.
+ * They ensure the CV looks professional when printed.
+ */
+
+@media print {
+    /* Hide non-essential elements */
+    .no-print,
+    header,
+    footer,
+    #heroSection,
+    #featuresSection,
+    #wizardSection,
+    #variantsSection,
+    #importModal,
+    #toast,
+    button,
+    nav {
+        display: none !important;
+    }
+
+    /* Show print content */
+    .print-only {
+        display: block !important;
+    }
+
+    /* Reset body styles */
+    body {
+        background: white !important;
+        color: black !important;
+        font-size: 11pt;
+        line-height: 1.4;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* CV Container */
+    #printableCV {
+        max-width: 100%;
+        margin: 0;
+        padding: 0.5in;
+    }
+
+    /* Typography */
+    h1 { font-size: 18pt; margin-bottom: 4pt; }
+    h2 { font-size: 14pt; margin-bottom: 4pt; border-bottom: 1pt solid #333; }
+    h3 { font-size: 12pt; margin-bottom: 3pt; }
+    h4 { font-size: 11pt; margin-bottom: 2pt; }
+    p, li { font-size: 10pt; margin-bottom: 2pt; }
+
+    /* Links */
+    a {
+        color: black !important;
+        text-decoration: none !important;
+    }
+
+    /* Page breaks */
+    .page-break {
+        page-break-before: always;
+    }
+
+    .avoid-break {
+        page-break-inside: avoid;
+    }
+
+    /* Section spacing */
+    section {
+        margin-bottom: 12pt;
+    }
+
+    /* Lists */
+    ul {
+        margin: 4pt 0;
+        padding-left: 14pt;
+    }
+
+    li {
+        margin-bottom: 2pt;
+    }
+
+    /* Hide shadows and borders */
+    * {
+        box-shadow: none !important;
+        border-radius: 0 !important;
+    }
+}
+
+/* Print preview styles */
+@media screen {
+    .print-preview {
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        max-width: 8.5in;
+        min-height: 11in;
+        padding: 0.5in;
+    }
+}
