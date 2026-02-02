@@ -680,33 +680,33 @@
     </section>
 
     <!-- Wizard Section -->
-    <section id="wizardSection" class="hidden py-8 bg-slate-50 no-print">
+    <section id="wizardSection" class="hidden pt-20 pb-8 bg-slate-50 min-h-screen no-print">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Progress Steps -->
-            <div class="mb-8">
-                <div class="flex items-center justify-center space-x-4 md:space-x-8">
-                    <div class="step-indicator-container flex items-center" data-step="1">
-                        <div class="step-indicator w-10 h-10 rounded-full bg-primary-600 text-white flex items-center justify-center font-semibold shadow-lg">1</div>
+            <div class="mb-8 bg-white rounded-xl shadow-sm p-4">
+                <div class="flex items-center justify-center space-x-2 md:space-x-6 overflow-x-auto">
+                    <div class="step-indicator-container flex items-center flex-shrink-0" data-step="1">
+                        <div class="step-indicator w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary-600 text-white flex items-center justify-center font-semibold shadow-lg text-sm md:text-base">1</div>
                         <span class="hidden md:block ml-2 text-sm font-medium text-slate-700">Profile</span>
                     </div>
-                    <div class="w-8 md:w-16 h-1 bg-slate-200 rounded step-line" data-before="1"></div>
-                    <div class="step-indicator-container flex items-center" data-step="2">
-                        <div class="step-indicator w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-semibold">2</div>
+                    <div class="w-6 md:w-12 h-1 bg-slate-200 rounded step-line flex-shrink-0" data-before="1"></div>
+                    <div class="step-indicator-container flex items-center flex-shrink-0" data-step="2">
+                        <div class="step-indicator w-8 h-8 md:w-10 md:h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-semibold text-sm md:text-base">2</div>
                         <span class="hidden md:block ml-2 text-sm font-medium text-slate-500">Job</span>
                     </div>
-                    <div class="w-8 md:w-16 h-1 bg-slate-200 rounded step-line" data-before="2"></div>
-                    <div class="step-indicator-container flex items-center" data-step="3">
-                        <div class="step-indicator w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-semibold">3</div>
+                    <div class="w-6 md:w-12 h-1 bg-slate-200 rounded step-line flex-shrink-0" data-before="2"></div>
+                    <div class="step-indicator-container flex items-center flex-shrink-0" data-step="3">
+                        <div class="step-indicator w-8 h-8 md:w-10 md:h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-semibold text-sm md:text-base">3</div>
                         <span class="hidden md:block ml-2 text-sm font-medium text-slate-500">Match</span>
                     </div>
-                    <div class="w-8 md:w-16 h-1 bg-slate-200 rounded step-line" data-before="3"></div>
-                    <div class="step-indicator-container flex items-center" data-step="4">
-                        <div class="step-indicator w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-semibold">4</div>
+                    <div class="w-6 md:w-12 h-1 bg-slate-200 rounded step-line flex-shrink-0" data-before="3"></div>
+                    <div class="step-indicator-container flex items-center flex-shrink-0" data-step="4">
+                        <div class="step-indicator w-8 h-8 md:w-10 md:h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-semibold text-sm md:text-base">4</div>
                         <span class="hidden md:block ml-2 text-sm font-medium text-slate-500">Generate</span>
                     </div>
-                    <div class="w-8 md:w-16 h-1 bg-slate-200 rounded step-line" data-before="4"></div>
-                    <div class="step-indicator-container flex items-center" data-step="5">
-                        <div class="step-indicator w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-semibold">5</div>
+                    <div class="w-6 md:w-12 h-1 bg-slate-200 rounded step-line flex-shrink-0" data-before="4"></div>
+                    <div class="step-indicator-container flex items-center flex-shrink-0" data-step="5">
+                        <div class="step-indicator w-8 h-8 md:w-10 md:h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-semibold text-sm md:text-base">5</div>
                         <span class="hidden md:block ml-2 text-sm font-medium text-slate-500">Export</span>
                     </div>
                 </div>
@@ -772,14 +772,24 @@
                                 <input type="url" id="portfolio" class="input-focus w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none" placeholder="https://johndoe.com">
                             </div>
                             <div class="md:col-span-2">
-                                <label for="summary" class="block text-sm font-medium text-slate-700 mb-2">Professional Summary</label>
-                                <textarea id="summary" rows="4" class="input-focus w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none resize-none" placeholder="Write a brief professional summary highlighting your key strengths and career objectives..."></textarea>
+                                <div class="flex justify-between items-center mb-2">
+                                    <label for="summary" class="block text-sm font-medium text-slate-700">Professional Summary</label>
+                                    <span id="summaryCharCount" class="text-xs text-slate-400">0 / 500 characters</span>
+                                </div>
+                                <textarea id="summary" rows="4" maxlength="500" class="input-focus w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none resize-none" placeholder="Write a brief professional summary highlighting your key strengths and career objectives..." oninput="updateSummaryCount()"></textarea>
                             </div>
                         </div>
                     </div>
 
                     <!-- Experience Tab -->
                     <div id="tab-experience" class="profile-tab-content hidden">
+                        <div id="experienceEmptyState" class="text-center py-8 text-slate-500">
+                            <svg class="w-16 h-16 mx-auto mb-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            <p class="font-medium text-slate-600 mb-1">No work experience added yet</p>
+                            <p class="text-sm">Add your job roles, responsibilities, and achievements to build a compelling CV.</p>
+                        </div>
                         <div id="experienceList" class="space-y-4 mb-4">
                             <!-- Experience items will be added here -->
                         </div>
@@ -793,6 +803,15 @@
 
                     <!-- Education Tab -->
                     <div id="tab-education" class="profile-tab-content hidden">
+                        <div id="educationEmptyState" class="text-center py-8 text-slate-500">
+                            <svg class="w-16 h-16 mx-auto mb-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path>
+                            </svg>
+                            <p class="font-medium text-slate-600 mb-1">No education history added yet</p>
+                            <p class="text-sm">Add your degrees, certifications, and academic achievements.</p>
+                        </div>
                         <div id="educationList" class="space-y-4 mb-4">
                             <!-- Education items will be added here -->
                         </div>
@@ -809,8 +828,8 @@
                         <div class="space-y-6">
                             <div>
                                 <label class="block text-sm font-medium text-slate-700 mb-2">Technical Skills</label>
-                                <div id="technicalSkills" class="flex flex-wrap gap-2 mb-2">
-                                    <!-- Skill tags will be added here -->
+                                <div id="technicalSkills" class="flex flex-wrap gap-2 mb-3 min-h-[40px] p-3 bg-blue-50 rounded-lg border border-blue-100">
+                                    <span id="technicalSkillsPlaceholder" class="text-sm text-blue-400 italic">Skills will appear here...</span>
                                 </div>
                                 <div class="flex gap-2">
                                     <input type="text" id="newTechnicalSkill" class="flex-1 px-4 py-2 rounded-lg border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none text-sm" placeholder="Add a technical skill (e.g., JavaScript, Python)">
@@ -819,8 +838,8 @@
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-slate-700 mb-2">Tools & Technologies</label>
-                                <div id="toolSkills" class="flex flex-wrap gap-2 mb-2">
-                                    <!-- Tool tags will be added here -->
+                                <div id="toolSkills" class="flex flex-wrap gap-2 mb-3 min-h-[40px] p-3 bg-purple-50 rounded-lg border border-purple-100">
+                                    <span id="toolSkillsPlaceholder" class="text-sm text-purple-400 italic">Tools will appear here...</span>
                                 </div>
                                 <div class="flex gap-2">
                                     <input type="text" id="newToolSkill" class="flex-1 px-4 py-2 rounded-lg border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none text-sm" placeholder="Add a tool (e.g., Git, Docker, AWS)">
@@ -829,8 +848,8 @@
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-slate-700 mb-2">Soft Skills</label>
-                                <div id="softSkills" class="flex flex-wrap gap-2 mb-2">
-                                    <!-- Soft skill tags will be added here -->
+                                <div id="softSkills" class="flex flex-wrap gap-2 mb-3 min-h-[40px] p-3 bg-green-50 rounded-lg border border-green-100">
+                                    <span id="softSkillsPlaceholder" class="text-sm text-green-400 italic">Soft skills will appear here...</span>
                                 </div>
                                 <div class="flex gap-2">
                                     <input type="text" id="newSoftSkill" class="flex-1 px-4 py-2 rounded-lg border border-slate-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none text-sm" placeholder="Add a soft skill (e.g., Leadership, Communication)">
@@ -842,6 +861,13 @@
 
                     <!-- Projects Tab -->
                     <div id="tab-projects" class="profile-tab-content hidden">
+                        <div id="projectsEmptyState" class="text-center py-8 text-slate-500">
+                            <svg class="w-16 h-16 mx-auto mb-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
+                            </svg>
+                            <p class="font-medium text-slate-600 mb-1">No projects added yet</p>
+                            <p class="text-sm">Showcase your personal projects, open source contributions, or side projects.</p>
+                        </div>
                         <div id="projectsList" class="space-y-4 mb-4">
                             <!-- Project items will be added here -->
                         </div>
@@ -855,6 +881,13 @@
 
                     <!-- Certifications Tab -->
                     <div id="tab-certifications" class="profile-tab-content hidden">
+                        <div id="certificationsEmptyState" class="text-center py-8 text-slate-500">
+                            <svg class="w-16 h-16 mx-auto mb-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                            </svg>
+                            <p class="font-medium text-slate-600 mb-1">No certifications added yet</p>
+                            <p class="text-sm">Add professional certifications, licenses, or credentials you've earned.</p>
+                        </div>
                         <div id="certificationsList" class="space-y-4 mb-4">
                             <!-- Certification items will be added here -->
                         </div>
@@ -1286,7 +1319,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 text-white py-12 no-print">
+    <footer id="mainFooter" class="bg-slate-900 text-white py-12 no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
@@ -1298,10 +1331,16 @@
                         </div>
                         <span class="text-xl font-bold">RoleFit CV Studio</span>
                     </div>
-                    <p class="text-slate-400 text-sm">
+                    <p class="text-slate-400 text-sm mb-4">
                         Generate truthful, job-aligned CV variants locally in your browser. 
                         Privacy-first: no data leaves your device.
                     </p>
+                    <a href="https://github.com/RoleFit-CV-Studio/RoleFit-CV-Studio.github.io" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 text-slate-400 hover:text-white transition-colors text-sm">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span>View on GitHub</span>
+                    </a>
                 </div>
                 <div>
                     <h4 class="font-semibold mb-4">Key Features</h4>
@@ -1326,7 +1365,7 @@
                 </div>
             </div>
             <div class="border-t border-slate-800 mt-8 pt-8 text-center text-slate-500 text-sm">
-                <p>© 2024 RoleFit CV Studio. MIT License.</p>
+                <p>© <span id="currentYear"></span> RoleFit CV Studio. MIT License.</p>
             </div>
         </div>
     </footer>
@@ -1358,6 +1397,14 @@
     <!-- Toast Notification -->
     <div id="toast" class="fixed bottom-4 right-4 bg-slate-800 text-white px-6 py-3 rounded-xl shadow-lg transform translate-y-full opacity-0 transition-all duration-300 z-50">
         <span id="toastMessage">Notification message</span>
+    </div>
+
+    <!-- Autosave Indicator -->
+    <div id="autosaveIndicator" class="fixed top-20 right-4 bg-green-100 text-green-700 px-4 py-2 rounded-lg shadow-md opacity-0 transition-opacity duration-300 z-40 flex items-center space-x-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        <span class="text-sm font-medium">Saved</span>
     </div>
 
     <!-- Print-only CV content -->
@@ -1450,7 +1497,15 @@
             loadSavedData();
             setupEventListeners();
             updateVariantsList();
+            updateDynamicYear();
         });
+
+        function updateDynamicYear() {
+            const yearElement = document.getElementById('currentYear');
+            if (yearElement) {
+                yearElement.textContent = new Date().getFullYear();
+            }
+        }
 
         function loadSavedData() {
             const savedProfile = Storage.load(Storage.KEYS.PROFILE);
@@ -1503,6 +1558,7 @@
             document.getElementById('heroSection').classList.add('hidden');
             document.getElementById('featuresSection').classList.add('hidden');
             document.getElementById('variantsSection').classList.add('hidden');
+            document.getElementById('mainFooter').classList.add('hidden');
             document.getElementById('wizardSection').classList.remove('hidden');
             currentStep = 1;
             updateStepIndicators();
@@ -1514,6 +1570,7 @@
             document.getElementById('wizardSection').classList.add('hidden');
             document.getElementById('heroSection').classList.remove('hidden');
             document.getElementById('featuresSection').classList.remove('hidden');
+            document.getElementById('mainFooter').classList.remove('hidden');
             if (variants.length > 0) {
                 document.getElementById('variantsSection').classList.remove('hidden');
             }
@@ -1656,11 +1713,13 @@
                 </div>
             `;
             document.getElementById('experienceList').insertAdjacentHTML('beforeend', html);
+            updateEmptyStates();
         }
 
         function removeExperience(id) {
             document.getElementById(id).remove();
             saveProfile();
+            updateEmptyStates();
         }
 
         // ==================== Education Management ====================
@@ -1688,11 +1747,13 @@
                 </div>
             `;
             document.getElementById('educationList').insertAdjacentHTML('beforeend', html);
+            updateEmptyStates();
         }
 
         function removeEducation(id) {
             document.getElementById(id).remove();
             saveProfile();
+            updateEmptyStates();
         }
 
         // ==================== Skills Management ====================
@@ -1714,6 +1775,7 @@
                     renderSkillTag(containerId, skill, type);
                     input.value = '';
                     saveProfile();
+                    updateSkillPlaceholders();
                 }
             }
         }
@@ -1756,17 +1818,38 @@
                 skillArray.splice(index, 1);
                 saveProfile();
                 renderAllSkills();
+                updateSkillPlaceholders();
             }
         }
 
         function renderAllSkills() {
             ['technicalSkills', 'toolSkills', 'softSkills'].forEach(id => {
-                document.getElementById(id).innerHTML = '';
+                const container = document.getElementById(id);
+                // Keep placeholder, remove skill tags
+                const placeholder = container.querySelector('[id$="Placeholder"]');
+                container.innerHTML = '';
+                if (placeholder) container.appendChild(placeholder);
             });
             
             profile.skills.technical.forEach(skill => renderSkillTag('technicalSkills', skill, 'technical'));
             profile.skills.tools.forEach(skill => renderSkillTag('toolSkills', skill, 'tool'));
             profile.skills.soft.forEach(skill => renderSkillTag('softSkills', skill, 'soft'));
+            updateSkillPlaceholders();
+        }
+
+        function updateSkillPlaceholders() {
+            const containers = [
+                { id: 'technicalSkills', placeholder: 'technicalSkillsPlaceholder', skills: profile.skills.technical },
+                { id: 'toolSkills', placeholder: 'toolSkillsPlaceholder', skills: profile.skills.tools },
+                { id: 'softSkills', placeholder: 'softSkillsPlaceholder', skills: profile.skills.soft }
+            ];
+            
+            containers.forEach(({ placeholder, skills }) => {
+                const placeholderEl = document.getElementById(placeholder);
+                if (placeholderEl) {
+                    placeholderEl.style.display = skills.length > 0 ? 'none' : 'inline';
+                }
+            });
         }
 
         // ==================== Projects Management ====================
@@ -1794,11 +1877,13 @@
                 </div>
             `;
             document.getElementById('projectsList').insertAdjacentHTML('beforeend', html);
+            updateEmptyStates();
         }
 
         function removeProject(id) {
             document.getElementById(id).remove();
             saveProfile();
+            updateEmptyStates();
         }
 
         // ==================== Certifications Management ====================
@@ -1826,11 +1911,32 @@
                 </div>
             `;
             document.getElementById('certificationsList').insertAdjacentHTML('beforeend', html);
+            updateEmptyStates();
         }
 
         function removeCertification(id) {
             document.getElementById(id).remove();
             saveProfile();
+            updateEmptyStates();
+        }
+
+        // ==================== Empty States Management ====================
+        function updateEmptyStates() {
+            const sections = [
+                { list: 'experienceList', empty: 'experienceEmptyState' },
+                { list: 'educationList', empty: 'educationEmptyState' },
+                { list: 'projectsList', empty: 'projectsEmptyState' },
+                { list: 'certificationsList', empty: 'certificationsEmptyState' }
+            ];
+            
+            sections.forEach(({ list, empty }) => {
+                const listEl = document.getElementById(list);
+                const emptyEl = document.getElementById(empty);
+                if (listEl && emptyEl) {
+                    const hasItems = listEl.children.length > 0;
+                    emptyEl.style.display = hasItems ? 'none' : 'block';
+                }
+            });
         }
 
         // ==================== Data Save/Load ====================
@@ -1892,6 +1998,7 @@
             });
 
             Storage.save(Storage.KEYS.PROFILE, profile);
+            showAutosaveIndicator();
         }
 
         function saveCurrentStepData() {
@@ -2540,6 +2647,35 @@
             setTimeout(() => {
                 toast.classList.add('translate-y-full', 'opacity-0');
             }, 3000);
+        }
+
+        function updateSummaryCount() {
+            const summary = document.getElementById('summary');
+            const countDisplay = document.getElementById('summaryCharCount');
+            if (summary && countDisplay) {
+                const length = summary.value.length;
+                countDisplay.textContent = `${length} / 500 characters`;
+                if (length > 400) {
+                    countDisplay.classList.add('text-amber-500');
+                    countDisplay.classList.remove('text-slate-400', 'text-red-500');
+                } else if (length >= 500) {
+                    countDisplay.classList.add('text-red-500');
+                    countDisplay.classList.remove('text-slate-400', 'text-amber-500');
+                } else {
+                    countDisplay.classList.add('text-slate-400');
+                    countDisplay.classList.remove('text-amber-500', 'text-red-500');
+                }
+            }
+        }
+
+        function showAutosaveIndicator() {
+            const indicator = document.getElementById('autosaveIndicator');
+            if (indicator) {
+                indicator.classList.remove('opacity-0');
+                setTimeout(() => {
+                    indicator.classList.add('opacity-0');
+                }, 2000);
+            }
         }
     </script>
 </body>
